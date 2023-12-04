@@ -55,8 +55,8 @@
             </a>
           </li>
           <li>
-            <a href="tables-data.html">
-              <i class="bi bi-circle"></i><span>Categorias</span>
+            <a href='?module=categorias'>
+              <i  class="bi bi-circle"></i><span>Categorias</span>
             </a>
           </li>
         </ul>

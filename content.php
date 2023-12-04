@@ -21,6 +21,7 @@ if($valor!=1){
          $_GET['module'] == 'r3' ? include "./modules/Reportes/views/r3.php" : false ;
          $_GET['module'] == 'r4' ? include "./modules/Reportes/views/r4.php" : false ;
          $_GET['module'] == 'r5' ? include "./modules/Reportes/views/r5.php" : false ;
+         $_GET['module'] == 'categorias' ? include "./modules/Parametrizacion/views/formularioCategorias.php" : false ;
 
 
         

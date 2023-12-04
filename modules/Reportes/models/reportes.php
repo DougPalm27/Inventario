@@ -34,6 +34,22 @@ class mdlReportes
         $stmt->closeCursor();
         return $resultado;
     }
+    public function listarreporteporcategoria()
+    {
+        // verificamos si se muestran todos losregistros o solo los del usuario logeado 
+
+        $sql = "SELECT * FROM inventario.vw_reporteGeneralInventario";
+        $stmt = $this->conn->prepare($sql);
+
+        try {
+            $stmt->execute();
+            $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            $resultado = $e->getMessage();
+        }
+        $stmt->closeCursor();
+        return $resultado;
+    }
     public function EliminarreporteGeneral($equipoID)
     {
         // verificamos si se muestran todos losregistros o solo los del usuario logeado 
