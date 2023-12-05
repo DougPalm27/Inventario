@@ -57,7 +57,9 @@ $(document).ready(function() {
     if($_GET['module'] =='r4'){
       echo '<script src="./modules/Reportes/js/reporteAsignaciones.js"></script>';
     }
-
+    if($_GET['module'] =='r5'){
+      echo '<script src="./modules/Reportes/js/reporteMantenimiento.js"></script>';
+    }
 }else{
     //echo '<script src="/modules/home/"></script>';
 }

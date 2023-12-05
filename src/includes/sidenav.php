@@ -33,7 +33,7 @@
           </li>
           <li>
             <a href="?module=r4" class="listaProductor">
-              <i class="bi bi-circle"></i><span>Reporte Historico a Nivel de Usuario</span>
+              <i class="bi bi-circle"></i><span>Reporte de Asignaciones</span>
             </a>
           </li>
           <li>

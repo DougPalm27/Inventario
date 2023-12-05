@@ -3,7 +3,7 @@
 $(document).ready(function () {
  
     // Cargar tabla
-    listarAsignaciones();
+    listarMantenimiento();
   
     // -------------------------- TABLA --------------------------
     $("#r1").on("click", "button", function () {
@@ -29,11 +29,11 @@ $(document).ready(function () {
   });
   
   // Función para cargar los parentescos
-  function listarAsignaciones() {
+  function listarMantenimiento() {
     // Petición
     $.ajax({
       type: "GET",
-      url: "./modules/Reportes/controllers/reporteAsignaciones.php",
+      url: "./modules/Reportes/controllers/reporteMantenimiento.php",
       dataType: "json",
       error: function (error) {
         console.log(error);
@@ -52,16 +52,13 @@ $(document).ready(function () {
             mDataProp: "codigoEquipo",width:10,
           },
           {
-            mDataProp: "descripcionGeneral", width:30,
+            mDataProp: "descripcion", width:70,
           },
           {
-            mDataProp: "codigoUsuario",width:10,
+            mDataProp: "Categoria",width:10,
           },
           {
-            mDataProp: "nombre", width:10,
-          },
-          {
-            mDataProp: "fechaAsignacion", width:10,
+            mDataProp: "fechaMantenimiento", width:10,
           },
           /* {
             className: "text-left",
@@ -82,7 +79,7 @@ $(document).ready(function () {
           }, */
         ];
         // Llamado a la función para crear la tabla con los datos
-        cargarTabla("#r4", respuesta, columns);
+        cargarTabla("#r5", respuesta, columns);
       },
     });
   }
