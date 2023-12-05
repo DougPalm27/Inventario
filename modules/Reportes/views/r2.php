@@ -1,44 +1,36 @@
 <div class="col-lg-12">
 
     <div class="card">
-      <div class="card-body">
-        <h5 class="card-title">Reporte de Inventario Historico</h5>
-    
-    
-            <div class="row">
-                <div class="col-md-3">
-                    <input type="text" id="fechaInput" placeholder="Id Equipo" class="form-control">
-                </div>
-                <div class="col-md-3">
-                    <input type="text" id="categoriaInput" placeholder="Categoria" class="form-control">
-                </div>
-                <div class="col-md-3">
-                    <input type="text" id="usuarioInput" placeholder="Usuario ID" class="form-control">
-                </div>
-                <div class="col-md-12 mt-3">
-                    <button class="submit btn btn-primary" onclick="buscar()">Buscar</button>
-                </div>
+        <div class="card-body">
+            <h5 class="card-title">Inventario Historico</h5>
+
+
+            <br>
+            <div class="btn-group" role="group" aria-label="Basic mixed styles example">
+                <button id="btnPrint" name="btnPrint" type="button" class="btn btn-warning"><i class="fas fa-print"></i>Imprimir Reporte</button>
             </div>
             <br>
-                <div class="col-md-12">
-                    <table class="table table-striped">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th scope="col">Equipo ID</th>
-                                <th scope="col">Categoria</th>
-                                <th scope="col">Descripcion</th>
-                                <th scope="col">Usuarios</th>
-                                <th scope="col">Fecha Inicial</th>
-                                <th scope="col">Fecha Inicial</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Los datos de los usuarios irían aquí. Ejemplo: -->
-                                                  
-                        </tbody>
-                    </table>
-                </div>
+            <hr>
+            <br>
+            <div class="col-md-12 table-responsive">
+                <table table class="table align-items-center table-flush table-striped" id="r2" name="r2">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">EquipoID</th>
+                            <th scope="col">Categoria</th>
+                            <th scope="col">Precio de Compra</th>
+                            <th scope="col">Fecha de Compra</th>
+                            <th scope="col">Fecha de Baja</th>
+                            <th scope="col">Motivo de Baja</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Los datos de los usuarios irían aquí. Ejemplo: -->
+
+                    </tbody>
+                </table>
             </div>
         </div>
-        </div>
-            </div>
+    </div>
+</div>
+</div>

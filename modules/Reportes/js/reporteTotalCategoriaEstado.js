@@ -1,12 +1,8 @@
-
-
 $(document).ready(function () {
- 
     // Cargar tabla
-    listarInventarioGeneral();
-  
+    listarCategoriaEstado();
     // -------------------------- TABLA --------------------------
-    $("#r1").on("click", "button", function () {
+    $("#r3").on("click", "button", function () {
       // Obtener el id que trae el botón
       let id = $(this).attr("data-marco");
       idRegistro = id;
@@ -25,15 +21,15 @@ $(document).ready(function () {
     $("#btnPrint").on("click", function(){
         window.open("./modules/Reportes/reportes/reporteGeneral.php", "_blank");
     });
-  
+
   });
   
-  // Función para cargar los parentescos
-  function listarInventarioGeneral() {
+  // Función para cargar las categorias y estado
+  function listarCategoriaEstado() {
     // Petición
     $.ajax({
       type: "GET",
-      url: "./modules/Reportes/controllers/reportesGeneralInventario.php",
+      url: "./modules/Reportes/controllers/reportesEquipoTotalCategoriaEstado.php",
       dataType: "json",
       error: function (error) {
         console.log(error);
@@ -49,43 +45,23 @@ $(document).ready(function () {
         console.log(respuesta);
         var columns = [
           {
-            mDataProp: "EquipoID",width:5,
+            mDataProp: "Descripción",width:30,
           },
           {
-            mDataProp: "Descripcion", width:30,
+            mDataProp: "Disponible", width:10,
           },
           {
-            mDataProp: "Categoria",width:10,
+            mDataProp: "En Reparación",width:10,
           },
           {
-            mDataProp: "Precio de Compra", width:10,
+            mDataProp: "Fuera de Servicio", width:10,
           },
           {
-            mDataProp: "Fecha de Compra", width:10,
-          },
-          {
-            mDataProp: "Estado", width:10,
-          },
-          {
-            className: "text-left",
-            width: 50,
-            render: function (data, types, full, meta) {
-              let btnModificar = `<button data-id = ${full.EquipoID} name="registro-editar" class="btn btn-outline-primary" type="button" data-toggle="tooltip" data-placement="top" title="Editar productor">
-                                      <i class="fas fa-pencil-alt"></i>
-                                    </button>`;
-              let btnVer = `<button data-id = ${full.EquipoID} name="registro-editar" class="btn btn-outline-success" type="button" data-toggle="tooltip" data-placement="top" title="Editar productor">
-                                      <i class="fas fa-eye"></i>
-                                    </button>`;
-  
-              let btnEliminar = `<button data-marco = ${full.EquipoID} name="registro-eliminar" class="btn btn-outline-danger" type="button" data-toggle="tooltip" data-placement="top" title="Eliminar productor">
-                                    <i class="fas fa-trash"></i>
-                                  </button>`;
-                                  return ` ${btnEliminar}`;;
-            },
+            mDataProp: "Total Existencias", width:10,
           },
         ];
         // Llamado a la función para crear la tabla con los datos
-        cargarTabla("#r1", respuesta, columns);
+        cargarTabla("#r3", respuesta, columns);
       },
     });
   }

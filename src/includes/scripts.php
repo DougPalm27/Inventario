@@ -37,30 +37,26 @@ $(document).ready(function() {
 
 <!-- Carga de  js según el módulo-->
 <?php
-  if (!empty($_GET['module'])) {
-       
+  if (!empty($_GET['module'])) {    
     //echo '<script src="./modules/home/views/home.js"></script>';  
-
-    /*
-     *  Módulo      : Productores
-     *  Descripción : funciones js para operación de opciones de productores
-     *  Ref         : /modules/productores/js
-     */
     if($_GET['module']=='listadoProductores'){      
       echo '<script src="./modules/productores/js/listaProductor.js"></script>';
     }
-
     if($_GET['module'] =='ejercicio'){
       echo '<script src="./modules/ejercicio/js/ejercicio.js"></script>';
     }
     if($_GET['module'] =='r1'){
       echo '<script src="./modules/Reportes/js/reporteGeneral.js"></script>';
     }
-
-  
-
-
-
+    if($_GET['module'] =='r2'){
+      echo '<script src="./modules/Reportes/js/reporteHistorico.js"></script>';
+    }
+    if($_GET['module'] =='r3'){
+      echo '<script src="./modules/Reportes/js/reporteTotalCategoriaEstado.js"></script>';
+    }
+    if($_GET['module'] =='r4'){
+      echo '<script src="./modules/Reportes/js/reporteAsignaciones.js"></script>';
+    }
 
 }else{
     //echo '<script src="/modules/home/"></script>';

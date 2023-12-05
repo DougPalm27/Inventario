@@ -3,7 +3,7 @@
 $(document).ready(function () {
  
     // Cargar tabla
-    listarInventarioGeneral();
+    listarAsignaciones();
   
     // -------------------------- TABLA --------------------------
     $("#r1").on("click", "button", function () {
@@ -29,11 +29,11 @@ $(document).ready(function () {
   });
   
   // Función para cargar los parentescos
-  function listarInventarioGeneral() {
+  function listarAsignaciones() {
     // Petición
     $.ajax({
       type: "GET",
-      url: "./modules/Reportes/controllers/reportesGeneralInventario.php",
+      url: "./modules/Reportes/controllers/reporteAsignaciones.php",
       dataType: "json",
       error: function (error) {
         console.log(error);
@@ -49,24 +49,21 @@ $(document).ready(function () {
         console.log(respuesta);
         var columns = [
           {
-            mDataProp: "EquipoID",width:5,
+            mDataProp: "codigoEquipo",width:5,
           },
           {
-            mDataProp: "Descripcion", width:30,
+            mDataProp: "descripcionGeneral", width:30,
           },
           {
-            mDataProp: "Categoria",width:10,
+            mDataProp: "codigoUsuario",width:10,
           },
           {
-            mDataProp: "Precio de Compra", width:10,
+            mDataProp: "nombre", width:10,
           },
           {
-            mDataProp: "Fecha de Compra", width:10,
+            mDataProp: "fechaAsignacion", width:10,
           },
-          {
-            mDataProp: "Estado", width:10,
-          },
-          {
+          /* {
             className: "text-left",
             width: 50,
             render: function (data, types, full, meta) {
@@ -82,10 +79,10 @@ $(document).ready(function () {
                                   </button>`;
                                   return ` ${btnEliminar}`;;
             },
-          },
+          }, */
         ];
         // Llamado a la función para crear la tabla con los datos
-        cargarTabla("#r1", respuesta, columns);
+        cargarTabla("#r4", respuesta, columns);
       },
     });
   }

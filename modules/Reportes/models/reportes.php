@@ -34,13 +34,42 @@ class mdlReportes
         $stmt->closeCursor();
         return $resultado;
     }
-    public function listarreporteporcategoria()
+    public function listarreporteporcategoriaEstado()
     {
-        // verificamos si se muestran todos losregistros o solo los del usuario logeado 
+        // verificamos si se muestran todos losregistros
 
-        $sql = "SELECT * FROM inventario.vw_reporteGeneralInventario";
+        $sql = "SELECT * FROM inventario.vw_reporteEquipoTotalPorCategoriaEstado";
         $stmt = $this->conn->prepare($sql);
 
+        try {
+            $stmt->execute();
+            $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            $resultado = $e->getMessage();
+        }
+        $stmt->closeCursor();
+        return $resultado;
+    }
+
+    public function listarreporteInventarioHistorico()
+    {
+        // verificamos si se muestran todos losregistros
+        $sql = "SELECT * FROM inventario.vw_reporteInventarioHistorico";
+        $stmt = $this->conn->prepare($sql);
+        try {
+            $stmt->execute();
+            $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            $resultado = $e->getMessage();
+        }
+        $stmt->closeCursor();
+        return $resultado;
+    }
+    public function listarreporteAsignaciones()
+    {
+        // verificamos si se muestran todos losregistros
+        $sql = "SELECT * FROM inventario.vw_asignaciones";
+        $stmt = $this->conn->prepare($sql);
         try {
             $stmt->execute();
             $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
