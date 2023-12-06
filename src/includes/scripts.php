@@ -60,6 +60,9 @@ $(document).ready(function() {
     if($_GET['module'] =='r5'){
       echo '<script src="./modules/Reportes/js/reporteMantenimiento.js"></script>';
     }
+    if($_GET['module'] =='equipo'){
+      echo '<script src="./modules/Equipo/js/fc_equipo.js"></script>';
+    }
 }else{
     //echo '<script src="/modules/home/"></script>';
 }

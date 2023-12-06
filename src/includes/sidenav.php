@@ -50,17 +50,18 @@
         </a>
         <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="tables-general.html">
-              <i class="bi bi-circle"></i><span>Equipo</span>
-            </a>
-          </li>
-          <li>
             <a href='?module=categorias'>
               <i  class="bi bi-circle"></i><span>Categorias</span>
             </a>
           </li>
         </ul>
       </li>
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="?module=equipo">
+          <i class="bi bi-display"></i>
+          <span>Equipo</span>
+        </a>
+      </li><!-- End Profile Page Nav -->
 
 
   </aside><!-- End Sidebar-->
