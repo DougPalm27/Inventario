@@ -77,7 +77,7 @@ $(document).ready(function () {
         aaData: data,
         aoColumns: columns,
         bSortable: false,
-        ordering: false,
+        ordering: true,
         language: {
           sProcessing: "Procesando...",
           sLengthMenu: "Mostrar _MENU_ registros",

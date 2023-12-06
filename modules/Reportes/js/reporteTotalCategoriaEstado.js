@@ -1,6 +1,7 @@
 $(document).ready(function () {
     // Cargar tabla
     listarCategoriaEstado();
+    
     // -------------------------- TABLA --------------------------
     $("#r3").on("click", "button", function () {
       // Obtener el id que trae el botón
@@ -41,6 +42,7 @@ $(document).ready(function () {
         });
       },
       success: function (respuesta) {
+        cargarGrafico(respuesta);
         // Creamos las columnas de nuestra tabla
         console.log(respuesta);
         var columns = [
@@ -72,7 +74,7 @@ $(document).ready(function () {
       aaData: data,
       aoColumns: columns,
       bSortable: false,
-      ordering: false,
+      ordering: true,
       language: {
         sProcessing: "Procesando...",
         sLengthMenu: "Mostrar _MENU_ registros",
@@ -166,5 +168,53 @@ $(document).ready(function () {
           },
         });
       }
+    });
+  }
+
+  function cargarGrafico(datos){
+
+  let name =[];
+  let value=[];
+  let contenido =[];
+  datos.forEach(e => {
+    let r ={
+      name: e.Descripción,
+      value : e.Disponible,
+    }
+    contenido.push(r);
+
+  });
+  
+    echarts.init(document.querySelector("#trafficChart")).setOption({
+      tooltip: {
+        trigger: 'item'
+      },
+      legend: {
+        top: '5%',
+        left: 'center'
+      },
+      series: [{
+        name: 'Cantidad:',
+        type: 'pie',
+        radius: ['40%', '70%'],
+        avoidLabelOverlap: false,
+        label: {
+          show: false,
+          position: 'center'
+        },
+        emphasis: {
+          label: {
+            show: true,
+            fontSize: '18',
+            fontWeight: 'bold'
+          }
+        },
+        labelLine: {
+          show: false
+        },
+
+      
+        data:contenido
+      }]
     });
   }

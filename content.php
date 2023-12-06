@@ -23,6 +23,9 @@ if($valor!=1){
          $_GET['module'] == 'r5' ? include "./modules/Reportes/views/r5.php" : false ;
          $_GET['module'] == 'equipo' ? include "./modules/Equipo/views/vw_equipo.php" : false ;
         //  $_GET['module'] == 'listadoProductores' ? include "./modules/productores/views/listaProductores.php" :false;
+
+        $_GET['module'] == 'asignacion' ? include "./modules/Asignaciones/view/asignacion.php" : false ;
+
     }
 }
 

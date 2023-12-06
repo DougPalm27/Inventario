@@ -63,6 +63,10 @@ $(document).ready(function() {
     if($_GET['module'] =='equipo'){
       echo '<script src="./modules/Equipo/js/fc_equipo.js"></script>';
     }
+
+    if($_GET['module'] =='asignacion'){
+      echo '<script src="./modules/Asignaciones/js/asignacion.js"></script>';
+    }
 }else{
     //echo '<script src="/modules/home/"></script>';
 }

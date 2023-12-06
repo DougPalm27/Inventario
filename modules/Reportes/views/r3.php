@@ -26,7 +26,7 @@
             </div>
             <!-- Website Traffic -->
             <div id="trafficChart" style="min-height: 400px;" class="echart"></div>
-            <script>
+            <!-- <script>
               document.addEventListener("DOMContentLoaded", () => {
                 echarts.init(document.querySelector("#trafficChart")).setOption({
                   tooltip: {
@@ -79,7 +79,7 @@
                   }]
                 });
               });
-            </script>
+            </script> -->
           </div><!-- End Website Traffic -->
         </div>
         </div>
