@@ -66,17 +66,10 @@
         </div>
       </div>
 
-
-
-      
-
-      
-
       <div class="text-center">
         <a type="submit" class="btn btn-primary" id="btnGuardarAsignacion"><i class="bi bi-cloud-check-fill"></i> Guardar</a>
         <a type="reset" class="btn btn-secondary" id="btnLimpiarAsignacion"><i class="bi bi-cloud-fog2"></i> Limpiar</a>
       </div>
     </form><!-- End floating Labels Form -->
-
   </div>
 </div>

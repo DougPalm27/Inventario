@@ -1,90 +1,75 @@
 $(document).ready(function () {
 
     listarCategorias();
-
-
-
     listarUsuarios();
-
-    listarProveedor();
+    listarEquipo();
 
     $("#categoriaID").on("change",function(){
         let cod =$("#categoriaID option:selected").attr("data-codigo");
 
         $("#codCategoria").val(cod);
     });
-
-
     $("#usuarioID").on("change",function(){
         let cod =$("#usuarioID option:selected").attr("data-codigo");
 
         $("#codUsuario").val(cod);
-    })
+    });
+    $("#equipoID").on("change",function(){
+      let cod =$("#equipoID option:selected").attr("data-codigo");
 
-  
+      $("#codEquipo").val(cod);
+    });
     // evento click del botón guardar
-    $("#btnGuardarEquipo").on("click", function () {
+    $("#btnGuardarAsignacion").on("click", function () {
       let losDatos = {
-        categoriaID: $("#categoriaID").val(),
-        fechaAdquisicion: $("#fechaAdquisicion").val(),
-        precioAdquisicion: $("#precioAdquisicion").val(),
-        ubicacionID: $("#ubicacionID").val(),
-        ubicacionID1:  $("#ubicacionID option:selected").text(),
-        proveedorID: $("#proveedorID").val(),
-        descripcionGeneral: $("#descripcionGeneral").text(),
-        serie: $("#serie").val()
+        categoriaID :  $("#categoriaID").val(),
+        categoriaID1 :  $("#categoriaID option:selected").text(),
+        equipoID: $("#equipoID").val(),
+        equipoID1:  $("#equipoID option:selected").text(),
+        usuarioID: $("#usuarioID").val(),
+        usuarioID1:  $("#usuarioID option:selected").text(),
       };
       let errores = [];
-  
-      // Validar categoriaID
-      
-      if (losDatos.categoriaID == "Seleccione una categoria") {
-          errores.push("Debe seleccionar una categoría.");
-        }
-        
-        // Validar fechaAdquisicion
-        if (!losDatos.fechaAdquisicion) {
-          errores.push("Debe ingresar la fecha de adquisición.");
-        }
-        
-        // Validar precioAdquisicion
-        if (!losDatos.precioAdquisicion || isNaN(losDatos.precioAdquisicion)) {
-          errores.push("Debe ingresar un precio de adquisición válido.");
-        }
-        
-        // Validar ubicacionID
-        if (losDatos.ubicacionID1 == "Selecciona una ubicación") {
-          errores.push("Debe seleccionar una ubicación.");
-        }
-        
-      
-      // Puedes agregar más validaciones para otros campos según tus necesidades
-      
       // Verificar si hay errores
-      if (errores.length > 0) {
-        let mensajeError = "Error en los siguientes campos:\n" + errores.join("\n");
-        swal.fire(
-          "Seccion de Equipo",
-          mensajeError,
-          "warning"
-        );
-      } else {
-        console.log(losDatos);
-        guardarDatos(losDatos);
-      }
-    });
+    // Validar precioAdquisicion
+   
+    // Validar ubicacionID
+    if (losDatos.equipoID1 == "Selecciona un equipo") {
+      errores.push("Debe seleccionar un equipo.");
+    }
+    if (losDatos.usuarioID1 == "Selecciona un usuario") {
+      errores.push("Debe seleccionar un equipo.");
+    }
+    if (losDatos.categoriaID1 == "Selecciona una categoria") {
+      errores.push("Debe seleccionar un equipo.");
+    }
   
+  // Puedes agregar más validaciones para otros campos según tus necesidades
+  
+  // Verificar si hay errores
+  if (errores.length > 0) {
+    let mensajeError = "Error en los siguientes campos:\n" + errores.join("\n");
+    swal.fire(
+      "Seccion de Equipo",
+      mensajeError,
+      "warning"
+    );
+  } else {
+    console.log(losDatos);
+    guardarDatos(losDatos);
+  }
+    });
     // evento change del select
-    $("#ubicacionID").on("change", function () {
-      const valor = $("#ubicacionID").val();
+    $("#usuarioID").on("change", function () {
+      const valor = $("#usuarioID").val();
       console.log(valor);
     });
     $("#categoriaID").on("change", function () {
       const valor = $("#categoriaID").val();
       console.log(valor);
     });
-    $("#proveedorID").on("change", function () {
-      const valor = $("#proveedorID").val();
+    $("#equipoID").on("change", function () {
+      const valor = $("#equipoID").val();
       console.log(valor);
     });
   
@@ -93,7 +78,7 @@ $(document).ready(function () {
   function guardarDatos(losDatos) {
     $.ajax({
       type: "POST", // POST  // GET   POST -Envia Recibe   | GET RECEPCIÓN
-      url: "./modules/Equipo/controllers/ctrl_equipo.php",
+      url: "./modules/Asignaciones/controllers/agregarAsignacion.php",
       data: {
         losDatos: losDatos,
       },
@@ -108,9 +93,9 @@ $(document).ready(function () {
         console.log(resp);
   
         if (resp[0].status == "200") {
-          swal.fire("Ejercicio", "Equipo registrado Correctamente", "success");
+          swal.fire("Seccion asignaciones", "Asignacion registrado Correctamente", "success");
         }else{
-          swal.fire("Ejercicio", respuesta, "warning");
+          swal.fire("Seccion asignaciones", respuesta, "warning");
         }
       },
     });
@@ -161,25 +146,25 @@ $(document).ready(function () {
         },
       });
   }
-  function listarProveedor() {
-      // POST  // GET   POST -Envia Recibe   | GET RECEPCIÓ
-      $.ajax({
-        type: "GET",
-        url: "./modules/Equipo/controllers/ctrl_proveedor.php",
-        data: {},
-        // Error en la petición
-        error: function (error) {
-          console.log(error);
-        },
-        // Petición exitosa
-        success: function (respuesta) {
-           
-          let datos = JSON.parse(respuesta);
-          datos.forEach((e) => {
-            $("#proveedorID").append(
-              `<option value="${e.proveedorID}">${e.nombre}</option>`
-            );
-          });
-        },
-      });
-  } 
+  function listarEquipo() {
+    // POST  // GET   POST -Envia Recibe   | GET RECEPCIÓ
+    $.ajax({
+      type: "GET",
+      url: "./modules/Asignaciones/controllers/listarEquipoM.php",
+      data: {},
+      // Error en la petición
+      error: function (error) {
+        console.log(error);
+      },
+      // Petición exitosa
+      success: function (respuesta) {
+         
+        let datos = JSON.parse(respuesta);
+        datos.forEach((e) => {
+          $("#equipoID").append(
+            `<option value="${e.equipoID}" data-codigo ="${e.codigoEquipo}">${e.descripcionGeneral}</option>`
+          );
+        });
+      },
+    });
+}

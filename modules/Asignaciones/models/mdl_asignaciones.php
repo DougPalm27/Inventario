@@ -13,13 +13,10 @@ class mdlAsignacion
     // método para guardar correos
     public function asignarEquipo($losDatos)
     {
-
-        $recio = "[inventario].[sp_AsignarEquipoUsuario] :usuarioId, :equipoID";
-
+        $recio = "EXEC [inventario].[sp_AsignarEquipoUsuario] :usuarioID, :equipoID";
         $stmt = $this->conn->prepare($recio);
         $stmt->bindParam(":usuarioID", $losDatos->usuarioID);
         $stmt->bindParam(":equipoID", $losDatos->equipoID);
-
         try {
             $stmt->execute();
             $response[0] = array(

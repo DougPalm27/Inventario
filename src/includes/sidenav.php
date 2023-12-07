@@ -11,18 +11,24 @@
       </li>End Dashboard Nav -->
       <li class="nav-item">
         <a class="nav-link collapsed" href="?module=asignacion">
-          <i class="bi bi-user"></i>
+          <i class="bi bi-arrow-up-right-square-fill"></i>
           <span>Asignar equipo</span>
         </a>
       </li>
-    
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="?module=equipo">
+          <i class="bi bi-display"></i>
+          <span>Equipo</span>
+        </a>
+      </li><!-- End Profile Page Nav -->
+
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-journal-text"></i><span>Reportes</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="forms-nav" class="nav-content " data-bs-parent="#sidebar-nav">
-          
-        <li>
+
+          <li>
             <a href="?module=r1" class="listaProductor">
               <i class="bi bi-circle"></i><span>Reporte de Inventario General</span>
             </a>
@@ -49,7 +55,6 @@
           </li>
         </ul>
       </li><!-- End Forms Nav -->
-
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-layout-text-window-reverse"></i><span>Formularios de parametrizacion</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -60,14 +65,11 @@
               <i  class="bi bi-circle"></i><span>Categorias</span>
             </a>
           </li>
+          <li>
+            <a href='?module=usuario'>
+              <i  class="bi bi-circle"></i><span>Usuario</span>
+            </a>
+          </li>
         </ul>
       </li>
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="?module=equipo">
-          <i class="bi bi-display"></i>
-          <span>Equipo</span>
-        </a>
-      </li><!-- End Profile Page Nav -->
-
-
   </aside><!-- End Sidebar-->

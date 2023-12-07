@@ -25,7 +25,8 @@ if($valor!=1){
         //  $_GET['module'] == 'listadoProductores' ? include "./modules/productores/views/listaProductores.php" :false;
 
         $_GET['module'] == 'asignacion' ? include "./modules/Asignaciones/view/asignacion.php" : false ;
-
+        $_GET['module'] == 'categorias' ? include "./modules/categorias/views/formularioCategorias.php" : false ;
+        $_GET['module'] == 'usuario' ? include "./modules/usuarios/views/formularioUsuario.php" : false ;
     }
 }
 

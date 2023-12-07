@@ -67,6 +67,13 @@ $(document).ready(function() {
     if($_GET['module'] =='asignacion'){
       echo '<script src="./modules/Asignaciones/js/asignacion.js"></script>';
     }
+
+    if($_GET['module'] =='categorias'){
+      echo '<script src="./modules/categorias/js/categoria.js"></script>';
+    }
+    if($_GET['module'] =='usuario'){
+      echo '<script src="./modules/usuarios/js/usuario.js"></script>';
+    }
 }else{
     //echo '<script src="/modules/home/"></script>';
 }
