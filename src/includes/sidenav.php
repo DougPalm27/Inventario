@@ -21,7 +21,12 @@
           <span>Equipo</span>
         </a>
       </li><!-- End Profile Page Nav -->
-
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="?module=lineaClaro">
+          <i class="bi bi-phone"></i>
+          <span>Lineas Moviles</span>
+        </a>
+      </li><!-- End Profile Page Nav -->
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-journal-text"></i><span>Reportes</span><i class="bi bi-chevron-down ms-auto"></i>

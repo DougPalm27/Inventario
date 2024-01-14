@@ -4,10 +4,10 @@
             try {
                 // recio
                 
-                $serverName = "3.128.144.165";
-                $database = "DB20162000225"; 
-                $user = 'kevin.antunez';
-                $password = 'KA20162000225';
+                $serverName = "(localdb)\DOUGLAS";
+                $database = "Inventario"; 
+                $user = 'dpalma';
+                $password = 'dpalma2729';
                 $port ="1443";
 
                 // Instanciar la conexion con la base de datos

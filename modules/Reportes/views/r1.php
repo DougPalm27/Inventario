@@ -45,11 +45,10 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Formulario para Ingresar Equipo</h5>
+        <div class="card-body">       
 
     <!-- Floating Labels Form -->
-    <form class="row g-3">
+    <form class="row g-3 p-4" >
 
       <div class="col-md-6">
         <div class="form-floating mb-3">
@@ -111,12 +110,14 @@
         </div>
       </div>
     </form><!-- End floating Labels Form -->
-        </div>
-      </div>
+
+            </div>
+          </div>
+
       <div class="modal-footer">
-        <a type="submit" class="btn btn-primary" id="btnGuardarEquipo"><i class="bi bi-cloud-check-fill"></i> Guardar</a>
-        <a class="btn btn-secondary" id="btnLimpiarEquipo"><i class="bi bi-cloud-fog2"></i> Limpiar</a>
+        <a type="submit" class="btn btn-primary" id="btnGuardarAsignacion"><i class="bi bi-cloud-check-fill"></i> Guardar</a>
+        <a type="reset" class="btn btn-secondary" id="btnLimpiarAsignacion"><i class="bi bi-cloud-fog2"></i> Limpiar</a>
       </div>
-    </div>
-  </div>
+      </div>
+      </div>
 </div><!-- End Extra Large Modal-->

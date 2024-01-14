@@ -11,8 +11,7 @@ class mdlEquipo
         $this->conn = $this->conn->dbConnect();
     }
     // método para guardar correos
-    public function guardarEquipo($losDatos)
-    {
+    public function guardarEquipo($losDatos){
 
         $recio = "EXEC inventario.sp_insertarEquipo
         :categoriaID,
@@ -50,8 +49,7 @@ class mdlEquipo
     }
 
     // listar ubicaciones para select
-    public function listarUbicaciones()
-    {
+    public function listarUbicaciones(){
         $sql = "SELECT * FROM inventario.ubicaciones";
         $stmt = $this->conn->prepare($sql);
 

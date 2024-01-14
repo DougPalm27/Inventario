@@ -10,7 +10,7 @@ class mdlAsignacion
         $this->conn = new Connection();
         $this->conn = $this->conn->dbConnect();
     }
-    // método para guardar correos
+    // método para guardar equipos asignados
     public function asignarEquipo($losDatos)
     {
         $recio = "EXEC [inventario].[sp_AsignarEquipoUsuario] :usuarioID, :equipoID";
@@ -54,7 +54,7 @@ class mdlAsignacion
      // listar ubicaciones para select
      public function listarUsuario()
      {
-         $sql = "SELECT * from inventario.usuarios WHERE estadoID=1";
+         $sql = "SELECT * from inventario.vw_usuario WHERE estadoID=1";
          $stmt = $this->conn->prepare($sql);
  
          try {

@@ -74,6 +74,9 @@ $(document).ready(function() {
     if($_GET['module'] =='usuario'){
       echo '<script src="./modules/usuarios/js/usuario.js"></script>';
     }
+    if($_GET['module'] =='lineaClaro'){
+      echo '<script src="./modules/Lineas/funciones/ingresarLinea.js"></script>';
+    }
 }else{
     //echo '<script src="/modules/home/"></script>';
 }
