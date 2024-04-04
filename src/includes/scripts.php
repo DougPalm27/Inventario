@@ -17,23 +17,14 @@
 <script src="./assets/vendor/datatables.net-buttons/js/buttons.flash.min.js"></script>
 <script src="./assets/vendor/datatables.net-buttons/js/buttons.print.min.js"></script>
 <script src="./assets/vendor/datatables.net-select/js/dataTables.select.min.js"></script>
-
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.28/dist/sweetalert2.all.min.js"></script>
 
 <!-- Template Main JS File -->
 <script src="./assets/js/main.js"></script>
+
+<!-- Select2 -->
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-<script>
-$(document).ready(function() {
-    $('#cargaProductor').select2({
-        dropdownParent: $('#verticalycentered'),
-        width : "100%",
-        placeholder: "Seleccione un productor para cargarlo",
-        allowClear: "true"
-    });
-});
-</script>
 
 <!-- Carga de  js según el módulo-->
 <?php

@@ -1,9 +1,11 @@
 $(document).ready(function () {
-
   listarLineas();
   listarMarcas();
   listarModelos();
   listarProyecto();
+  listarUsuarios();
+  listarLineasDisponibles();
+  listarCelularesDisponibles();
 
   // evento click del botón guardar
   $("#btnGuardarLinea").on("click", function () {
@@ -21,8 +23,6 @@ $(document).ready(function () {
     if (losDatos.numeroLinea == "") {
       errores.push("Debe ingresar una linea");
     }
-  
-
     // Verificar si hay errores
     if (errores.length > 0) {
       let mensajeError =
@@ -32,6 +32,30 @@ $(document).ready(function () {
       console.log(losDatos);
       guardarNuevaLinea(losDatos);
     }
+  });
+  //evento click del boton guardar en modal Asiganciones
+  $("#btnGuardarAsignarLinea").on("click", function () {
+    let losDatos = {
+      usuarioID: $("#usuario").val(),
+      lineaID: $("#linea2").val(),
+      dispositivoID: $("#Imei2").val(),
+      fechaAsignacion: $("#fechaAsignacion").val(),
+    };
+    console.log(losDatos);
+    // Verificar si hay errores
+
+    if (losDatos.usuarioID === -1) {
+      swal.fire("Atención, debes Seleccionar un usuario", "", "warning");
+    } else if (losDatos.lineaID === -1) {
+      swal.fire("Atención, debes Seleccionar una línea", "", "warning");
+    } else if (losDatos.dispositivoID === -1) {
+      swal.fire("Atención, debes Seleccionar un dispositivo", "", "warning");
+    } else if (losDatos.fechaAsignacion === '') {
+      swal.fire("Atención, debes Seleccionar una fecha válida", "", "warning");
+    } else {
+      asignarLinea(losDatos);
+    }
+    
   });
 
   // evento change del select
@@ -45,6 +69,32 @@ $(document).ready(function () {
   });
   $("#codigoProyecto").on("change", function () {
     const valor = $("#codigoProyecto").val();
+    console.log(valor);
+  });
+  $("#usuario").on("change", function () {
+    const codigo = $('select[name="usuario"] option:selected').attr(
+      "data-codigo"
+    );
+    $("#cempleado").val(codigo);
+  });
+  $("#linea2").on("change", function () {
+    const valor = $("#linea2").val();
+    const proyecto = $('select[name="linea2"] option:selected').attr(
+      "data-proyecto"
+    );
+    const sugerencia = $('select[name="linea2"] option:selected').attr(
+      "data-sugerencia"
+    );
+    $("#sugerencia").append(
+      `<div class="col-md-12 alert alert-success bg-success text-light border-0 alert-dismissible fade show" role="alert">
+        El dispositivo sugerido para esta línea es: ${sugerencia}
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>`
+    );
+    $("#proyecto").val(proyecto);
+  });
+  $("#Imei2").on("change", function () {
+    const valor = $("#Imei2").val();
     console.log(valor);
   });
 });
@@ -74,7 +124,6 @@ function guardarNuevaLinea(losDatos) {
     },
   });
 }
-
 function listarProyecto() {
   // POST  // GET   POST -Envia Recibe   | GET RECEPCIÓ
   $.ajax({
@@ -89,14 +138,13 @@ function listarProyecto() {
     success: function (respuesta) {
       let datos = JSON.parse(respuesta);
       datos.forEach((e) => {
-        $("#proyecto").append(
+        $("#codigoProyecto").append(
           `<option value="${e.codigoProyecto}">${e.nombreProyecto}</option>`
         );
       });
     },
   });
 }
-
 function listarModelos() {
   // POST  // GET   POST -Envia Recibe   | GET RECEPCIÓ
   $.ajax({
@@ -118,7 +166,6 @@ function listarModelos() {
     },
   });
 }
-
 function listarMarcas() {
   // POST  // GET   POST -Envia Recibe   | GET RECEPCIÓ
   $.ajax({
@@ -157,48 +204,95 @@ function listarLineas() {
     },
     success: function (respuesta) {
       // Creamos las columnas de nuestra tabla
-      console.log(respuesta);
+
       var columns = [
         {
-          mDataProp: "Linea",width:'10%',
+          mDataProp: "Linea",
+          width: "10%",
         },
         {
-          mDataProp: "Asignado", width:'15%',
+          mDataProp: "Asignado",
+          width: "15%",
         },
         {
-          mDataProp: "Proyecto",width:'15%',
+          mDataProp: "Proyecto",
+          width: "15%",
         },
         {
-          mDataProp: "Marca", width:'10%',
+          mDataProp: "Marca",
+          width: "10%",
         },
         {
-          mDataProp: "Modelo", width:'25%',
+          mDataProp: "Modelo",
+          width: "25%",
         },
         {
-          mDataProp: "Estado", width:'5%',
+          mDataProp: "Estado",
+          width: "5%",
         },
         {
           className: "text-left",
-          width: '10%',
+          width: "10%",
           render: function (data, types, full, meta) {
             let btnModificar = `<button data-id = ${full.lineaID} name="registro-editar" class="btn btn-outline-primary" type="button" data-toggle="tooltip" data-placement="top" title="Editar productor">
                                     <i class="fas fa-pencil-alt"></i>
                                   </button>`;
-                         
+
             let btnVer = `<button data-id = ${full.lineaID} name="registro-editar" class="btn btn-outline-success" type="button" data-toggle="tooltip" data-placement="top" title="Editar productor">
                                     <i class="fas fa-eye"></i>
                                   </button>`;
-                              
 
             let btnEliminar = `<button data-marco = ${full.lineaID} name="registro-eliminar" class="btn btn-outline-danger" type="button" data-toggle="tooltip" data-placement="top" title="Eliminar productor">
                                   <i class="fas fa-trash"></i>
                                 </button>`;
-                                return ` ${btnEliminar} ${btnVer} ${btnModificar}`  ;
+            return ` ${btnEliminar} ${btnVer} ${btnModificar}`;
           },
         },
       ];
       // Llamado a la función para crear la tabla con los datos
       cargarTabla("#TablaLineas", respuesta, columns);
+    },
+  });
+}
+function listarLineasDisponibles() {
+  // POST  // GET   POST -Envia Recibe   | GET RECEPCIÓ
+  $.ajax({
+    type: "GET",
+    url: "./modules/Lineas/controllers/listarLineasDisponibles.php",
+    data: {},
+    // Error en la petición
+    error: function (error) {
+      console.log(error);
+    },
+    // Petición exitosa
+    success: function (respuesta) {
+      let datos = JSON.parse(respuesta);
+      datos.forEach((e) => {
+        $("#linea2").append(
+          `<option data-sugerencia="${e.IMEI} ${e.Modelo} ${e.Marca}"  data-proyecto="${e.nombreProyecto}" value="${e.lineaID}">${e.numeroLinea}</option>`
+        );
+      });
+    },
+  });
+}
+function listarCelularesDisponibles() {
+  // POST  // GET   POST -Envia Recibe   | GET RECEPCIÓ
+  $.ajax({
+    type: "GET",
+    url: "./modules/Lineas/controllers/celularesDisponibles.php",
+    data: {},
+    // Error en la petición
+    error: function (error) {
+      console.log(error);
+    },
+    // Petición exitosa
+    success: function (respuesta) {
+      let datos = JSON.parse(respuesta);
+      datos.forEach((e) => {
+        $("#Imei2").append(
+          `<option value="${e.lineaDetalleID}">${e.IMEI} ${e.Modelo} ${e.Marca}</option>`
+        );
+      });
     },
   });
 }
@@ -303,5 +397,57 @@ function eliminarRegistro(id) {
         },
       });
     }
+  });
+}
+function asignarLinea(losDatos) {
+  $.ajax({
+    type: "POST",
+    url: "./modules/Lineas/controllers/asignarLinea.php",
+    data: {
+      losDatos: losDatos,
+    },
+    // Error en la petición
+    error: function (error) {
+      console.log(error);
+    },
+    // Petición exitosa
+    success: function (respuesta) {
+      console.log("Respuesta sin parsear:", respuesta);
+    
+      try {
+        const resp = JSON.parse(respuesta);
+        console.log("Respuesta parseada:", resp);
+    
+        if (resp[0].status == "200") {
+          swal.fire("Lineas", "Linea asignada Correctamente", "success");
+        } else {
+          swal.fire("Lineas", resp[0].message, "warning");
+        }
+      } catch (error) {
+        console.error("Error al analizar JSON:", error);
+        swal.fire("Lineas", "Error en el formato de respuesta del servidor", "error");
+      }
+    },
+  });
+}
+function listarUsuarios() {
+  // POST  // GET   POST -Envia Recibe   | GET RECEPCIÓ
+  $.ajax({
+    type: "GET",
+    url: "./modules/Asignaciones/controllers/listarUsuariosM.php",
+    data: {},
+    // Error en la petición
+    error: function (error) {
+      console.log(error);
+    },
+    // Petición exitosa
+    success: function (respuesta) {
+      let datos = JSON.parse(respuesta);
+      datos.forEach((e) => {
+        $("#usuario").append(
+          `<option value="${e.UsuarioID}" data-codigo="${e.codigoUsuario}">${e.nombre}</option>`
+        );
+      });
+    },
   });
 }

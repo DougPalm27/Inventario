@@ -2,14 +2,15 @@
   <div class="card-body">
     <h5 class="card-title">Formulario para Ingresar Equipo</h5>
 
+
+
     <!-- Floating Labels Form -->
     <form class="row g-3">
 
       <div class="col-md-6">
         <div class="form-floating mb-3">
           <select class="form-select" id="categoriaID" name="categoriaID" aria-label="State">
-            <option selected>Selecciona una categoria</option>
-
+            <option value="-1" selected>Selecciona una categoria</option>
           </select>
           <label for="floatingSelect">Categoria</label>
         </div>
@@ -70,6 +71,5 @@
         <a type="reset" class="btn btn-secondary" id="btnLimpiarEquipo"><i class="bi bi-cloud-fog2"></i> Limpiar</a>
       </div>
     </form><!-- End floating Labels Form -->
-
-  </div>
+            </div>
 </div>
