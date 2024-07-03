@@ -6,6 +6,7 @@
             <div class="btn-group" role="group" aria-label="Basic mixed styles example">
                 <a data-bs-toggle="modal" data-bs-target="#ExtralargeModal" id="btnNuevaLinea" name="btnNuevaLinea" type="button" class="btn btn-primary"><i class="fas fa-save "></i>Nueva linea </a>
                 <a data-bs-toggle="modal" data-bs-target="#asignarLineaModal" id="btnAsignarLinea" name="btnAsignarLinea" type="button" class="btn btn-success"><i class="bi bi-chevron-bar-right"></i>Asignar linea</a>
+                <a data-bs-toggle="modal" data-bs-target="#asignarLineaModal" id="btnAsignarLinea" name="btnAsignarLinea" type="button" class="btn btn-secondary"><i class="bi bi-chevron-bar-right"></i>Asignacion extraordinaria</a>
                 <a id="btnPrint" name="btnPrint" type="button" class="btn btn-warning"><i class="fas fa-print"></i>Imprimir Reporte</a>
             </div>
             <br>
@@ -25,7 +26,7 @@
                     <button class="nav-link w-100" id="original" data-bs-toggle="tab" data-bs-target="#contact-justified" type="button" role="tab" aria-controls="contact" aria-selected="false">Listado Original</button>
                 </li>
             </ul>
-
+            
             <div class="tab-content pt-2" id="myTabjustifiedContent">
                 <div class="tab-pane fade show active" id="home-justified" role="tabpanel" aria-labelledby="home-tab">
                     <div class="col-md-12 table-responsive">
@@ -82,16 +83,17 @@
             <div class="card">
                 <div class="card-body">
                     <!-- Floating Labels Form -->
-                    <form id="modalLineas" name="modalLineas" class="row g-3 p-4">
+                    <form id="modalLineas" name="modalLineas" class="row g-3 p-4" novalidate>
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="numeroLinea" name="numerolinea" placeholder="City">
+                                <input type="text" class="form-control" id="numeroLinea" name="numerolinea" placeholder="City"  require>
                                 <label for="floatingCity">Número Linea</label>
+
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-floating mb-3">
-                                <select class="form-select" id="codigoProyecto" name="codigoProyecto" aria-label="State">
+                                <select class="form-select" id="codigoProyecto" name="codigoProyecto" php-email-form aria-label="State">
                                     <option selected>Selecciona un Proyecto</option>
                                 </select>
                                 <label for="floatingSelect">Proyecto</label>
@@ -99,7 +101,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <input type="date" class="form-control" id="fechaActivacion" name="fechaActivacion">
+                                <input type="date" class="form-control" id="fechaActivacion" php-email-form  name="fechaActivacion">
                                 <label>Fecha de Activación</label>
                             </div>
                         </div>
@@ -136,10 +138,6 @@
                                 <input type="date" class="form-control" id="fechaVencimiento" name="fechaVencimiento" placeholder="City">
                                 <label for="floatingCity">Fecha de Vencimiento</label>
                             </div>
-                        </div>
-                        <div class="form-check form-switch">
-                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                            <label class="form-check-label" for="flexSwitchCheckDefault">Quieres asignar este equipo de una vez?</label>
                         </div>
                     </form><!-- End floating Labels Form -->
                 </div>

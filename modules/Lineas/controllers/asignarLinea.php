@@ -9,3 +9,4 @@
     // Instanciamos el modelo y llamamos al método correspondiente
     $conexion = new mdlLineas();
     $elRegistro = $conexion->asignarLinea($losDatos);
+    echo $elRegistro;

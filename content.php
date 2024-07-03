@@ -28,7 +28,8 @@ if($valor!=1){
         $_GET['module'] == 'categorias' ? include "./modules/categorias/views/formularioCategorias.php" : false ;
         $_GET['module'] == 'usuario' ? include "./modules/usuarios/views/formularioUsuario.php" : false ;
         $_GET['module'] == 'lineaClaro' ? include "./modules/Lineas/views/lineas.php" : false ;
+        $_GET['module'] == 'marcas' ? include "./modules/Parametrizacion/marcas/views/marcas.php" : false ;
+        $_GET['module'] == 'modelos' ? include "./modules/Parametrizacion/modelos/views/modelos.php" : false ;
     }
 }
-
 ?>

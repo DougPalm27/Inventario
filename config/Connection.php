@@ -4,8 +4,8 @@
             try {
                 // recio
                 
-                $serverName = "(localdb)\DOUGLAS";
-                $database = "Inventario"; 
+                $serverName = "simfcoh.cqx4pv8jnvji.us-east-2.rds.amazonaws.com";
+                $database = "DBSIMFCOH_PRB"; 
                 $user = 'dpalma';
                 $password = 'dpalma2729';
                 $port ="1443";

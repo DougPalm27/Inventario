@@ -10,11 +10,29 @@
       </div>
       <div class="col-md-6">
         <div class="form-floating">
-          <input id="codigoCategoria" name="codigoCategoria" type="text" class="form-control"
-            placeholder="Código Categoría">
+          <input id="codigoCategoria" name="codigoCategoria" type="text" class="form-control" placeholder="Código Categoría">
           <label for="floatingEmail">Código Categoría</label>
         </div>
       </div>
+
+      <div class="tab-content pt-2" id="myTabjustifiedContent">
+        <div class="tab-pane fade show active" id="home-justified" role="tabpanel" aria-labelledby="home-tab">
+          <div class="col-md-12 table-responsive">
+            <table class="table align-items-center table-flush table-striped" id="tablaMarcas" name="tablaMarcas">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Categoria</th>
+                  <th scope="col">Cantidad</th>
+                  <th scope="col">Acciones</th>
+                </tr>
+              </thead>
+              <tbody>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div><!-- End Default Tabs -->
+
       <div class="text-center">
         <a id="btnGuardar" onclick="guardarDatos()" class="btn btn-primary">Guardar</a>
         <button type="reset" class="btn btn-secondary">Limpiar</button>

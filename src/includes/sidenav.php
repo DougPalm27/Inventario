@@ -9,7 +9,7 @@
           <span>Dashboard</span>
         </a>
       </li>End Dashboard Nav -->
-      <li class="nav-item">
+      <li hidden class="nav-item">
         <a class="nav-link collapsed" href="?module=asignacion">
           <i class="bi bi-arrow-up-right-square-fill"></i>
           <span>Asignar equipo</span>
@@ -27,7 +27,7 @@
           <span>Lineas Moviles</span>
         </a>
       </li><!-- End Profile Page Nav -->
-      <li class="nav-item">
+      <li class="nav-item" hidden>
         <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-journal-text"></i><span>Reportes</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
@@ -67,12 +67,17 @@
         <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
             <a href='?module=categorias'>
-              <i  class="bi bi-circle"></i><span>Categorias</span>
+              <i class="bi bi-circle"></i><span>Categorias</span>
             </a>
           </li>
           <li>
-            <a href='?module=usuario'>
-              <i  class="bi bi-circle"></i><span>Usuario</span>
+            <a href='?module=marcas'>
+              <i class="bi bi-circle"></i><span>Marcas</span>
+            </a>
+          </li>
+          <li>
+            <a href='?module=modelos'>
+              <i class="bi bi-circle"></i><span>Modelos</span>
             </a>
           </li>
         </ul>

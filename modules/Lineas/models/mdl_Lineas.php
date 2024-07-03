@@ -40,23 +40,9 @@ class mdlLineas
         $exec->closeCursor();
         return $resultado;
     }
-    public function listarCelularesDisponibles()
-    {
-        $sql = "SELECT * FROM inventario.vw_CelularesDisponibles";
-        $exec = $this->conn->prepare($sql);
-
-        try {
-            $exec->execute();
-            $resultado = $exec->fetchAll(PDO::FETCH_ASSOC);
-        } catch (PDOException $e) {
-            $resultado = $e->getMessage();
-        }
-        $exec->closeCursor();
-        return $resultado;
-    }
     public function listarMarca()
     {
-        $sql = "SELECT * FROM inventario.marcas";
+        $sql = "SELECT * FROM inventario.marcas WHERE estadoID=1" ;
         $exec = $this->conn->prepare($sql);
 
         try {
@@ -99,7 +85,7 @@ class mdlLineas
     {
 
         $errorLineasDetalle = 0;
-        $estadoID = 1;
+
 
         $sqllinea = "INSERT INTO inventario.lineas (numeroLinea,estadoActivo,FechaActivacion,codigoProyecto) 
         VALUES (:numeroLinea,1,:FechaActivacion,:codigoProyecto)";
@@ -116,21 +102,29 @@ class mdlLineas
             # Captura del ultimo id insertado de la tabla inventario.lineas
             $idLinea = $this->conn->lastInsertId();
 
-            $sqllineaDetalle = "    INSERT INTO inventario.lineasDetalle (lineaID, Marca, Modelo, IMEI, fechaRenovacion, fechaVencimiento)
-                VALUES (:lineaID, :marca, :modelo,:Imei, :fechaRenovacion, :fechaVencimiento)";
-            $stmt = $this->conn->prepare($sqllinea);
-            $stmt->bindParam(":lineaID", $idLinea);
-            $stmt->bindParam(":marca", $losDatos->marca);
-            $stmt->bindParam(":modelo", $losDatos->modelo);
-            $stmt->bindParam(":Imei", $losDatos->imei);
-            $stmt->bindParam(":fechaRenovacion", $losDatos->fechaRenovacion);
-            $stmt->bindParam(":fechaVencimiento", $losDatos->fechaVencimiento);
+            $sqllineaDetalle = "    INSERT INTO inventario.lineasDetalle (lineaID, Marca, Modelo, IMEI, fechaRenovacion, fechaVencimiento,estadoID)
+                VALUES (:lineaID, :marca, :modelo,:Imei, :fechaRenovacion, :fechaVencimiento,1)";
+            $stmt1 = $this->conn->prepare($sqllineaDetalle);
+            $stmt1->bindParam(":lineaID", $idLinea);
+            $stmt1->bindParam(":marca", $losDatos->marca);
+            $stmt1->bindParam(":modelo", $losDatos->modelo);
+            $stmt1->bindParam(":Imei", $losDatos->Imei);
+            $stmt1->bindParam(":fechaRenovacion", $losDatos->fechaRenovacion);
+            $stmt1->bindParam(":fechaVencimiento", $losDatos->fechaVencimiento);
             try {
-                $stmt->execute();
+                $stmt1->execute();
+                $this->conn->commit();
+                $response[0] = array(
+                    'status'  => '200',
+                    'mensaje' => 'Bien'
+                );           
+                $resultado = json_encode($response);
+
+
             } catch (PDOException $e) {
                 $this->conn->rollBack();
                 $errorLineasDetalle = $errorLineasDetalle + 1;
-                $res = $stmt->errorInfo();
+                $res = $stmt1->errorInfo();
                 $resultado = json_encode($res);
             }
         } catch (PDOException $e) {
@@ -175,7 +169,6 @@ class mdlLineas
     
         // Retornar antes de cerrar el cursor
         $stmt->closeCursor();
-    
         return $resultado;
     }
     
