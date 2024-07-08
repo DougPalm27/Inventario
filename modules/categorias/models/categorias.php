@@ -13,11 +13,10 @@
     // método para guardar categorias
     public function guardarNuevaCategoria($losDatos){
 
-        $recio ="exec inventario.sp_insertarCategoria :descripcion,:codigoCategoria";
+        $recio ="INSERT INTO inventario.categorias values (:descripcion)";
 
         $stmt = $this->conn->prepare($recio);
         $stmt->bindParam(":descripcion",$losDatos->categoria);
-        $stmt->bindParam(":codigoCategoria",$losDatos->codigoCategoria);
 
         try {
             $stmt->execute();

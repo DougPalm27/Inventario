@@ -8,17 +8,11 @@
           <label for="floatingName">Nueva Categoría</label>
         </div>
       </div>
-      <div class="col-md-6">
-        <div class="form-floating">
-          <input id="codigoCategoria" name="codigoCategoria" type="text" class="form-control" placeholder="Código Categoría">
-          <label for="floatingEmail">Código Categoría</label>
-        </div>
-      </div>
 
       <div class="tab-content pt-2" id="myTabjustifiedContent">
         <div class="tab-pane fade show active" id="home-justified" role="tabpanel" aria-labelledby="home-tab">
           <div class="col-md-12 table-responsive">
-            <table class="table align-items-center table-flush table-striped" id="tablaMarcas" name="tablaMarcas">
+            <table class="table align-items-center table-flush table-striped" id="tablaCategorias" name="tablaCategorias">
               <thead class="thead-dark">
                 <tr>
                   <th scope="col">Categoria</th>

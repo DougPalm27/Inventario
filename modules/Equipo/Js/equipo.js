@@ -4,9 +4,37 @@ $(document).ready(function () {
   listarUsuarios();
   listarEquipo();
   listarAsignaciones();
+  listarMarcas();
+  listarModelos();
+  listarCategorias();
+  listarProyectos();
 
   // listarEquipo();
   
+  // -------------------------- TABLA --------------------------
+  $("#TablaAsignaciones").on("click", "button", function () {
+    // Obtener el id que trae el botón
+    let id = $(this).attr("data-id");
+    idRegistro = id;
+    console.log(idRegistro);
+    // Obtener la acción a realizar
+    let accion = $(this).attr("name");
+
+    // Dependiendo del botón al que se le hace click
+    // se realizará una acción transmitida por el atributo name
+      if (accion == "registro-eliminar") {
+      // Llamamos a la alerta para eliminar
+      eliminarAsignacion(id);
+    }
+      else if(accion == "registro-imprimir"){
+        
+
+        const url = `./modules/Equipo/reports/custodios.php?id=${id}`;
+        window.open(url);
+      }
+  });
+
+
   // evento change del select
   $("#usuarioID").on("change", function () {
     const valor = $("#usuarioID").val();
@@ -26,12 +54,14 @@ $(document).ready(function () {
     let usuarioID = $("#usuarioID").val();
     let equipoID = $("#equipoID").val();
     let fechaAsignacion = $("#fechaAsignacionEquipo").val();
+    let Observaciones = $("#Observaciones").val();
     let filtro = 1;
 
     let losDatos = {
       usuarioID: usuarioID,
       equipoID: equipoID,
       fechaAsignacion: fechaAsignacion,
+      Observaciones: Observaciones,
     };
 
     if (usuarioID == -1 || usuarioID.length <= 0) {
@@ -66,7 +96,17 @@ $(document).ready(function () {
       );
     } else {
       guardarDatos(losDatos);
+      listarAsignaciones();
     }
+  });
+
+  $("#marca2").on("change", function () {
+    const valor = $("#marca2").val();
+    console.log(valor);
+  });
+  $("#modelo2").on("change", function () {
+    const valor = $("#modelo2").val();
+    console.log(valor);
   });
 });
 
@@ -258,13 +298,13 @@ function listarAsignaciones() {
             className: "text-left",
             width: 5,
             render: function (data, types, full, meta) {
-              let btnModificar = `<button data-id = ${full.equipoID} name="registro-editar" class="btn btn-outline-primary" type="button" data-toggle="tooltip" data-placement="top" title="Editar productor">
-                                      <i class="fas fa-pencil-alt"></i>
+              let btnImprimir = `<button data-id = ${full.asignacionID} name="registro-imprimir" class="btn btn-outline-primary" type="button" data-toggle="tooltip" data-placement="top" title="Editar productor">
+                                      <i class="bx bxs-printer"></i>
                                     </button>`;  
-              let btnEliminar = `<button data-marco = ${full.equipoID} name="registro-eliminar" class="btn btn-outline-danger" type="button" data-toggle="tooltip" data-placement="top" title="Eliminar productor">
+              let btnEliminar = `<button data-id = ${full.asignacionID} name="registro-eliminar" class="btn btn-outline-danger" type="button" data-toggle="tooltip" data-placement="top" title="Eliminar productor">
                                     <i class="fas fa-trash"></i>
                                   </button>`;
-                                  return ` ${btnEliminar}  ${btnModificar}`;
+                                  return ` ${btnImprimir} ${btnEliminar}`;
             },
           }, 
       ];
@@ -273,6 +313,7 @@ function listarAsignaciones() {
     },
   });
 }
+
 function cargarTabla(tableID, data, columns) {
 
  
@@ -288,6 +329,7 @@ function cargarTabla(tableID, data, columns) {
     aoColumns: columns,
     bSortable: true,
     ordering: true,
+
     language: {
       sProcessing: "Procesando...",
       sLengthMenu: "Mostrar _MENU_ registros",
@@ -350,7 +392,7 @@ function eliminarAsignacion(id) {
     if (result.isConfirmed) {
       $.ajax({
         type: "POST",
-        url: "./modules/Reportes/controllers/reportesGeneralEliminar.php",
+        url: "./modules/Equipo/Controllers/eliminarasignacion.php",
         data: {
           recio: id,
         },
@@ -358,9 +400,9 @@ function eliminarAsignacion(id) {
         error: function (error) {
           console.log(error);
           Swal.fire({
-            title: "Equipo",
+            title: "Cagada mi dog",
             icon: "error",
-            text: `${error.responseText}`,
+            text: "una cosa te pido y la estas cagando",
             confirmButtonColor: "#3085d6",
           });
         },
@@ -372,26 +414,118 @@ function eliminarAsignacion(id) {
           // Eliminado correctamente
           if (datos[0].status == 200) {
             Swal.fire({
-              title: "Equipo",
+              title: "Listo calixto",
               icon: "success",
               text: `${datos[0].mensaje}`,
               confirmButtonColor: "#3085d6",
             });
 
             // Actualizar los datos en tabla
-            listarInventarioGeneral();
+            listarAsignaciones();
           }
           // Error
           else {
             Swal.fire({
-              title: "Productor",
+              title: "Cagada",
               icon: "error",
-              text: `Ocurrió un error al intentar eliminar el registro.`,
+              text: `Ocurrió un error al intentar eliminar la asignacion.`,
               confirmButtonColor: "#3085d6",
             });
           }
         },
       });
     }
+  });
+}
+
+function listarMarcas() {
+  // POST  // GET   POST -Envia Recibe   | GET RECEPCIÓ
+  $.ajax({
+    type: "GET",
+    url: "./modules/Lineas/controllers/listarMarca.php",
+    data: {},
+    // Error en la petición
+    error: function (error) {
+      console.log(error);
+    },
+    // Petición exitosa
+    success: function (respuesta) {
+      let datos = JSON.parse(respuesta);
+      datos.forEach((e) => {
+        $("#marca2").append(
+          `<option value="${e.marcaID}">${e.nombreMarca}</option>`
+        );
+      });
+    },
+  });
+
+  
+}
+
+function listarModelos() {
+  // POST  // GET   POST -Envia Recibe   | GET RECEPCIÓ
+  $.ajax({
+    type: "GET",
+    url: "./modules/Parametrizacion/modelos/controllers/cargarModelos.php",
+    data: {},
+    // Error en la petición
+    error: function (error) {
+      console.log(error);
+    },
+    // Petición exitosa
+    success: function (respuesta) {
+      let datos = JSON.parse(respuesta);
+      datos.forEach((e) => {
+        $("#modelo2").append(
+          `<option value="${e.modeloID}">${e.nombreModelo}</option>`
+        );
+      });
+    },
+  });
+
+  
+}
+
+function listarCategorias() {
+  // POST  // GET   POST -Envia Recibe   | GET RECEPCIÓ
+  $.ajax({
+    type: "GET",
+    url: "./modules//Generales/controllersGenerales/listarCategorias.php",
+    data: {},
+    // Error en la petición
+    error: function (error) {
+      console.log(error);
+    },
+    // Petición exitosa
+    success: function (respuesta) {
+      let datos = JSON.parse(respuesta);
+      datos.forEach((e) => {
+        $("#categoria2").append(
+          `<option value="${e.categoriaID}">${e.descripcion}</option>`
+        );
+      });
+    },
+  });
+}
+
+function listarProyectos() {
+  // POST  // GET   POST -Envia Recibe   | GET RECEPCIÓ
+  $.ajax({
+    type: "GET",
+    url: "./modules//Generales/controllersGenerales/listarProyectos.php",
+    data: {},
+    // Error en la petición
+    error: function (error) {
+      console.log(error);
+    },
+    // Petición exitosa
+    success: function (respuesta) {
+      let datos = JSON.parse(respuesta);
+      datos.forEach((e) => {
+        $("#proyecto2").append(
+          `<option value="${e.proyectoID}">${e.nombreProyecto}</option>`
+        );
+      });
+    },
   });
 }

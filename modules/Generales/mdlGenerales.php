@@ -10,7 +10,21 @@ class mdlGenerales
     }
     public function listarUsuario()
     {
-        $sql = "SELECT * from inventario.vw_usuario WHERE estadoID=1";
+        $sql = "SELECT * from inventario.vw_usuario WHERE estadoID=1 ORDER BY nombre";
+        $stmt = $this->conn->prepare($sql);
+
+        try {
+            $stmt->execute();
+            $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            $resultado = $e->getMessage();
+        }
+        $stmt->closeCursor();
+        return $resultado;
+    }
+    public function listarCategorias()
+    {
+        $sql = "SELECT * from inventario.categorias";
         $stmt = $this->conn->prepare($sql);
 
         try {
@@ -23,6 +37,22 @@ class mdlGenerales
         return $resultado;
     }
 
+    public function listarProyectos()
+    {
+        $sql = "SELECT * from inventario.proyectos";
+        $stmt = $this->conn->prepare($sql);
+
+        try {
+            $stmt->execute();
+            $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            $resultado = $e->getMessage();
+        }
+        $stmt->closeCursor();
+        return $resultado;
+    }
+
+
     public function listarEquipo()
     {
     
@@ -34,7 +64,7 @@ class mdlGenerales
         INNER JOIN inventario.marcas AS ma ON e.marcaID = ma.marcaID 
 
         
-        WHERE e.estadoID IN (1,4) AND e.equipoID NOT IN (SELECT a.equipoID FROM inventario.asignaciones AS a)";
+        WHERE e.estadoID IN (1) AND e.equipoID NOT IN (SELECT a.equipoID FROM inventario.asignaciones AS a WHERE estadoID = 3)";
         $stmt = $this->conn->prepare($Equipo);
         try {
             $stmt->execute();

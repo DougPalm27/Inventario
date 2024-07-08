@@ -7,9 +7,12 @@
 $username=$_POST['username'];
 $contra=$_POST['password'];
 
-if($username =="ADMINISTRADOR" || $username =="Marcos "|| $username =="Douglas"){
-    header("location: ../../../inicio.php");      
-}else{?>
+if( ($username == "msorto" && $contra == "proDuX10n_03") || 
+    ($username == "dpalma" && $contra == "Hpo051!") || 
+    ($username == "mramirez1" && $contra == "\$plan2024")) { // Escapa el signo $
+    header("Location: ../../../inicio.php");
+    exit(); // O die();
+} else {?>
 
 
 <script type="text/javascript">
@@ -30,8 +33,4 @@ if($username =="ADMINISTRADOR" || $username =="Marcos "|| $username =="Douglas")
 <?php
 
 }
-
-
-
-
 ?>

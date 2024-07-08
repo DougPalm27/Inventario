@@ -9,7 +9,7 @@ if($valor!=1){
     echo "<meta http-equiv='refresh' content='0; url=https://simfcoh.com/'>";
 }else{
     if (empty($_GET['module'])) {
-       include "./modules/home/views/inicio.php";
+       include "./modules/Equipo/views/vw_equipo.php";
     }else{
         /**
          * Módulo: prueba
