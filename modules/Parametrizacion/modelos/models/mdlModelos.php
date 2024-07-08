@@ -13,7 +13,7 @@ class mdlModelos
     public function listarModelo($filtro)
     {
         if($filtro==1){
-            $sql = "SELECT nombreModelo,nombreMarca,Cantidad = 1 FROM inventario.modelos as mo
+            $sql = "SELECT mo.modeloID,nombreModelo,nombreMarca,Cantidad = 1 FROM inventario.modelos as mo
             INNER JOIN  inventario.marcas as ma ON mo.marcaID = ma.marcaID";
         }else{
             $sql = "SELECT nombreModelo FROM inventario.modelos";

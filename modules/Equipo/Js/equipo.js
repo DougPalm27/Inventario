@@ -1,6 +1,4 @@
 $(document).ready(function () {
-  
-
   listarUsuarios();
   listarEquipo();
   listarAsignaciones();
@@ -10,7 +8,7 @@ $(document).ready(function () {
   listarProyectos();
 
   // listarEquipo();
-  
+
   // -------------------------- TABLA --------------------------
   $("#TablaAsignaciones").on("click", "button", function () {
     // Obtener el id que trae el botón
@@ -22,19 +20,14 @@ $(document).ready(function () {
 
     // Dependiendo del botón al que se le hace click
     // se realizará una acción transmitida por el atributo name
-      if (accion == "registro-eliminar") {
+    if (accion == "registro-eliminar") {
       // Llamamos a la alerta para eliminar
       eliminarAsignacion(id);
+    } else if (accion == "registro-imprimir") {
+      const url = `./modules/Equipo/reports/custodios.php?id=${id}`;
+      window.open(url);
     }
-      else if(accion == "registro-imprimir"){
-        
-
-        const url = `./modules/Equipo/reports/custodios.php?id=${id}`;
-        window.open(url);
-      }
   });
-
-
   // evento change del select
   $("#usuarioID").on("change", function () {
     const valor = $("#usuarioID").val();
@@ -49,7 +42,6 @@ $(document).ready(function () {
     $("#proyectoID").val(proyecto);
     console.log(valor);
   });
-  // evento click del botón guardar
   $("#btnGuardarAsignarEquipo").on("click", function () {
     let usuarioID = $("#usuarioID").val();
     let equipoID = $("#equipoID").val();
@@ -63,6 +55,7 @@ $(document).ready(function () {
       fechaAsignacion: fechaAsignacion,
       Observaciones: Observaciones,
     };
+    console.log(losDatos);
 
     if (usuarioID == -1 || usuarioID.length <= 0) {
       Swal.fire(
@@ -100,13 +93,119 @@ $(document).ready(function () {
     }
   });
 
+  // evento click del botón guardar
+  $("#btnEquipo").on("click", function () {
+    let categoria2 = $("#categoria2").val();
+    let fecha2 = $("#fecha2").val();
+    let descripcion2 = $("#descripcion2").val();
+    let serie2 = $("#serie2").val();
+    let sap2 = $("#sap2").val();
+    let marca2 = $("#marca2").val();
+    let precio2 = $("#precio2").val();
+    let modelo2 = $("#modelo2").val();
+    let proyecto2 = $("#proyecto2").val();
+
+    let losDatos2 = {
+      categoria2: categoria2,
+      fecha2: fecha2,
+      descripcion2: descripcion2,
+      serie2: serie2,
+      sap2: sap2,
+      precio2: precio2,
+      marca2: marca2,
+      modelo2: modelo2,
+      proyecto2: proyecto2,
+    };
+    console.log(losDatos2);
+
+    // Validación de campos
+    if (categoria2 == -1 || categoria2.length <= 0) {
+      Swal.fire(
+        "Ups",
+        "Parece que no has seleccionado una categoría, por favor selecciona una.",
+        "warning"
+      );
+      return; // Detiene la ejecución si la validación falla
+    } else if (marca2 == -1 || marca2.length <= 0) {
+      Swal.fire(
+        "Ups",
+        "Parece que no has ingresado la marca, por favor ingresa una marca.",
+        "warning"
+      );
+      return; // Detiene la ejecución si la validación falla
+    } else if (modelo2 == -1 || modelo2.length <= 0) {
+      Swal.fire(
+        "Ups",
+        "Parece que no has ingresado el modelo, por favor ingresa un modelo.",
+        "warning"
+      );
+      return; // Detiene la ejecución si la validación falla
+    } else if (precio2 <= 0 || precio2.length <= 0) {
+      Swal.fire(
+        "Ups",
+        "Parece que no has ingresado un precio valido, por favor intenta de nuevo.",
+        "warning"
+      );
+      return; // Detiene la ejecución si la validación falla
+    } else if (descripcion2.length <= 0) {
+      Swal.fire(
+        "Ups",
+        "Parece que no has ingresado la descripción, por favor ingresa una descripción.",
+        "warning"
+      );
+      return; // Detiene la ejecución si la validación falla
+    } else if (serie2.length <= 0) {
+      Swal.fire(
+        "Ups",
+        "Parece que no has ingresado el número de serie, por favor ingresa un número de serie.",
+        "warning"
+      );
+      return; // Detiene la ejecución si la validación falla
+    } else if (sap2.length <= 0) {
+      Swal.fire(
+        "Ups",
+        "Parece que no has ingresado el codigo sap, por favor ingresa un número de serie.",
+        "warning"
+      );
+      return; // Detiene la ejecución si la validación falla
+    } else if (proyecto2 == -1 || proyecto2.length <= 0) {
+      Swal.fire(
+        "Ups",
+        "Parece que no has ingresado el proyecto, por favor ingresa un proyecto.",
+        "warning"
+      );
+      return; // Detiene la ejecución si la validación falla
+    } else if (!fecha2) {
+      Swal.fire(
+        "Ups",
+        "Por favor, selecciona una fecha de asignación",
+        "warning"
+      );
+    } else if (!isValidDate(fecha2)) {
+      Swal.fire("Ups", "El formato de la fecha de no es válida", "warning");
+    } else if (new Date(fecha2) > new Date()) {
+      Swal.fire(
+        "Ups",
+        "La fecha de asignación no puede ser una fecha futura",
+        "warning"
+      );
+    } else {
+      guardarNuevoEquipo(losDatos2);
+      listarEquipo();
+    }
+  });
+  $("#categoria2").on("change", function () {
+    const valor = $("#categoria2").val();
+  });
   $("#marca2").on("change", function () {
     const valor = $("#marca2").val();
-    console.log(valor);
   });
   $("#modelo2").on("change", function () {
     const valor = $("#modelo2").val();
-    console.log(valor);
+  });
+  $("#proyecto2").on("change", function () {
+    const valor = $("#proyecto2").val();
+
   });
 });
 
@@ -143,9 +242,41 @@ function guardarDatos(losDatos) {
         console.log(respuesta);
         console.log(JSON.parse(respuesta));
         swal.fire("Ups", respuesta, "warning");
-        
       }
-      
+    },
+  });
+}
+
+function guardarNuevoEquipo(losDatos2) {
+  $.ajax({
+    type: "POST", // POST  // GET   POST -Envia Recibe   | GET RECEPCIÓN
+    url: "./modules/Equipo/Controllers/guardarEquipo.php",
+    data: {
+      losDatos2: losDatos2,
+    },
+    // Error en la petición
+    error: function (error) {
+      console.log(error);
+    },
+    // Petición exitosa
+    success: function (respuesta) {
+      console.log(respuesta);
+      const resp = JSON.parse(respuesta);
+      console.log(resp);
+
+      if (resp[0].status == "200") {
+        swal.fire("Excelente", "Equipo registrado correctamente", "success");
+      } else if (resp[0] == "42000") {
+        swal.fire(
+          "Ups",
+          "Este equipo ya tiene una asignación activa, elige otro",
+          "warning"
+        );
+      } else {
+        console.log(respuesta);
+        console.log(JSON.parse(respuesta));
+        swal.fire("Ups", respuesta, "warning");
+      }
     },
   });
 }
@@ -189,52 +320,40 @@ function listarEquipo() {
         $("#equipoID").append(
           `<option value="${e.equipoID}" data-proyecto="${e.np}">${e.serie} - ${e.descripcionGeneral}</option>`
         );
-
       });
-
 
       var columns = [
         {
           mDataProp: "codigoSAP",
-          
         },
         {
           mDataProp: "np",
-          
         },
         {
           mDataProp: "nombreMarca",
-          
         },
         {
           mDataProp: "nombreModelo",
-          
         },
         {
           mDataProp: "serie",
-          
         },
-         {
-            className: "text-left",
-          
-            render: function (data, types, full, meta) {
-              let btnModificar = `<button data-id = ${full.equipoID} name="registro-editar" class="btn btn-outline-primary" type="button" data-toggle="tooltip" data-placement="top" title="Editar productor">
+        {
+          className: "text-left",
+
+          render: function (data, types, full, meta) {
+            let btnModificar = `<button data-id = ${full.equipoID} name="registro-editar" class="btn btn-outline-primary" type="button" data-toggle="tooltip" data-placement="top" title="Editar productor">
                                       <i class="fas fa-pencil-alt"></i>
-                                    </button>`;  
-              let btnEliminar = `<button data-marco = ${full.equipoID} name="registro-eliminar" class="btn btn-outline-danger" type="button" data-toggle="tooltip" data-placement="top" title="Eliminar productor">
+                                    </button>`;
+            let btnEliminar = `<button data-marco = ${full.equipoID} name="registro-eliminar" class="btn btn-outline-danger" type="button" data-toggle="tooltip" data-placement="top" title="Eliminar productor">
                                     <i class="fas fa-trash"></i>
                                   </button>`;
-                                  return ` ${btnEliminar}  ${btnModificar}`;
-            },
-          }, 
+            return ` ${btnEliminar}  ${btnModificar}`;
+          },
+        },
       ];
       // Llamado a la función para crear la tabla con los datos
       cargarTabla("#TablaDisponibles2", datos, columns);
-      
-      
-
-
-
     },
   });
 }
@@ -247,8 +366,8 @@ function isValidDate(dateString) {
   // Verificar si la fecha es válida
   const date = new Date(dateString);
   const timestamp = date.getTime();
-  if (typeof timestamp !== 'number' || Number.isNaN(timestamp)) return false;
-  return dateString === date.toISOString().split('T')[0];
+  if (typeof timestamp !== "number" || Number.isNaN(timestamp)) return false;
+  return dateString === date.toISOString().split("T")[0];
 }
 
 function listarAsignaciones() {
@@ -294,19 +413,19 @@ function listarAsignaciones() {
           mDataProp: "serie",
           width: 5,
         },
-         {
-            className: "text-left",
-            width: 5,
-            render: function (data, types, full, meta) {
-              let btnImprimir = `<button data-id = ${full.asignacionID} name="registro-imprimir" class="btn btn-outline-primary" type="button" data-toggle="tooltip" data-placement="top" title="Editar productor">
+        {
+          className: "text-left",
+          width: 5,
+          render: function (data, types, full, meta) {
+            let btnImprimir = `<button data-id = ${full.asignacionID} name="registro-imprimir" class="btn btn-outline-primary" type="button" data-toggle="tooltip" data-placement="top" title="Editar productor">
                                       <i class="bx bxs-printer"></i>
-                                    </button>`;  
-              let btnEliminar = `<button data-id = ${full.asignacionID} name="registro-eliminar" class="btn btn-outline-danger" type="button" data-toggle="tooltip" data-placement="top" title="Eliminar productor">
+                                    </button>`;
+            let btnEliminar = `<button data-id = ${full.asignacionID} name="registro-eliminar" class="btn btn-outline-danger" type="button" data-toggle="tooltip" data-placement="top" title="Eliminar productor">
                                     <i class="fas fa-trash"></i>
                                   </button>`;
-                                  return ` ${btnImprimir} ${btnEliminar}`;
-            },
-          }, 
+            return ` ${btnImprimir} ${btnEliminar}`;
+          },
+        },
       ];
       // Llamado a la función para crear la tabla con los datos
       cargarTabla("#TablaAsignaciones", respuesta, columns);
@@ -315,17 +434,11 @@ function listarAsignaciones() {
 }
 
 function cargarTabla(tableID, data, columns) {
-
- 
-
-
   $(tableID).dataTable().fnClearTable();
   $(tableID).dataTable().fnDestroy();
   var params = {
     aaData: data,
 
-    
-   
     aoColumns: columns,
     bSortable: true,
     ordering: true,
@@ -363,18 +476,14 @@ function cargarTabla(tableID, data, columns) {
     },
   };
 
-  
-
-
   $(tableID).DataTable(params);
-  $('a[data-toggle="tab"]').on('shown.bs.tab', function(e){
-    $($.fn.dataTable.tables(true)).DataTable()
-       .columns.adjust()
-       .fixedColumns().relayout();
- }); 
-
- 
-  
+  $('a[data-toggle="tab"]').on("shown.bs.tab", function (e) {
+    $($.fn.dataTable.tables(true))
+      .DataTable()
+      .columns.adjust()
+      .fixedColumns()
+      .relayout();
+  });
 }
 
 function eliminarAsignacion(id) {
@@ -458,15 +567,13 @@ function listarMarcas() {
       });
     },
   });
-
-  
 }
 
 function listarModelos() {
   // POST  // GET   POST -Envia Recibe   | GET RECEPCIÓ
   $.ajax({
     type: "GET",
-    url: "./modules/Parametrizacion/modelos/controllers/cargarModelos.php",
+    url: "./modules/Generales/controllersGenerales/listarModelos.php",
     data: {},
     // Error en la petición
     error: function (error) {
@@ -482,8 +589,6 @@ function listarModelos() {
       });
     },
   });
-
-  
 }
 
 function listarCategorias() {

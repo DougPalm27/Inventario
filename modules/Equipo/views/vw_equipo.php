@@ -65,6 +65,24 @@
                         </table>
                     </div>
                 </div>
+                <div class="tab-pane fade" id="baja" role="tabpanel" aria-labelledby="profile-tab">
+                    <div class="col-md-12 table-responsive">
+                        <table class="table align-items-center table-flush table-striped" id="deBaja" name="deBaja" width="100%">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">Codigo SAP</th>
+                                    <th scope="col">Proyecto</th>
+                                    <th scope="col">Marca</th>
+                                    <th scope="col">Modelo</th>
+                                    <th scope="col">Serie</th>
+                                    <th scope="col">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div><!-- End Default Tabs -->
         </div>
     </div>
@@ -282,14 +300,14 @@
 
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="precio2" name="precio2" placeholder="City">
+                                <input type="text" class="form-control" id="serie2" name="serie2" placeholder="City">
                                 <label for="floatingCity">Serie:</label>
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="sap" name="sap" placeholder="City">
+                                <input type="text" class="form-control" id="sap2" name="sap2" placeholder="City">
                                 <label for="floatingCity">Codigo SAP:</label>
                             </div>
                         </div>
@@ -297,7 +315,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <a type="submit" class="btn btn-primary" id="btnGuardarAsignarEquipo"><i class="bi bi-cloud-check-fill"></i> Guardar</a>
+                <a type="submit" class="btn btn-primary" id="btnEquipo"><i class="bi bi-cloud-check-fill"></i> Guardar</a>
                 <a type="reset" class="btn btn-secondary" id="btnLimpiarModalEquipo"><i class="bi bi-cloud-fog2"></i> Limpiar</a>
             </div>
         </div>

@@ -14,7 +14,6 @@ class mdlEquipos
     {
 
         $recio = "	INSERT INTO inventario.asignaciones (equipoID,usuarioID,fechaAsignacion,estadoID,observaciones) VALUES (:equipoID,:usuarioID,:fechaAsignacion,3,:observaciones)";
-
         $stmt = $this->conn->prepare($recio);
         $stmt->bindParam(":equipoID", $losDatos->equipoID);
         $stmt->bindParam(":usuarioID", $losDatos->usuarioID);
@@ -102,19 +101,41 @@ class mdlEquipos
     public function guardarEquipo($losDatos)
     {
 
-        $recio = "	INSERT INTO inventario.equipo (categoriaID,1,fechaAdquisicion,proveedorID,descripcionGeneral,serie,codigoSAP,marcaID,modeloID,proyectoID) 
-        VALUES (:categoriaID,:estadoID,:fechaAdquisicion,1,:descripcion,:serie,:codigoSAP,:marcaID,:modeloID,:proyectoID)";
+        $recio = "	INSERT INTO inventario.equipo 
+        (categoriaID,
+        estadoID,
+        fechaAdquisicion,
+        proveedorID,
+        descripcionGeneral,
+        serie,
+        codigoSAP,
+        marcaID,
+        modeloID,
+        proyectoID,
+        precioAdquisicion) 
+        VALUES 
+        (:categoriaID,
+        1,
+        :fechaAdquisicion,
+        1,
+        :descripcion,
+        :serie,
+        :codigoSAP,
+        :marcaID,
+        :modeloID,
+        :proyectoID,
+        :precio)";
 
         $stmt = $this->conn->prepare($recio);
         $stmt->bindParam(":categoriaID", $losDatos->categoria2);
         $stmt->bindParam(":fechaAdquisicion", $losDatos->fecha2);
-        $stmt->bindParam(":proveedorID", $losDatos->proveedor2);
         $stmt->bindParam(":descripcion", $losDatos->descripcion2);
         $stmt->bindParam(":serie", $losDatos->serie2);
         $stmt->bindParam(":codigoSAP", $losDatos->sap2);
         $stmt->bindParam(":marcaID", $losDatos->marca2);
         $stmt->bindParam(":modeloID", $losDatos->modelo2);
         $stmt->bindParam(":proyectoID", $losDatos->proyecto2);
+        $stmt->bindParam(":precio", $losDatos->precio2);
 
         try {
             $stmt->execute();

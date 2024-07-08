@@ -37,6 +37,21 @@ class mdlGenerales
         return $resultado;
     }
 
+    public function listarModelos()
+    {
+        $sql = "SELECT * from inventario.modelos";
+        $stmt = $this->conn->prepare($sql);
+
+        try {
+            $stmt->execute();
+            $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            $resultado = $e->getMessage();
+        }
+        $stmt->closeCursor();
+        return $resultado;
+    }
+
     public function listarProyectos()
     {
         $sql = "SELECT * from inventario.proyectos";
