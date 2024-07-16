@@ -6,10 +6,8 @@ $(document).ready(function () {
   listarModelos();
   listarCategorias();
   listarProyectos();
-
-  // listarEquipo();
-
-  // -------------------------- TABLA --------------------------
+  listarTodo();
+  // -------------------------- TABLA ASIGNACIONES--------------------------
   $("#TablaAsignaciones").on("click", "button", function () {
     // Obtener el id que trae el botón
     let id = $(this).attr("data-id");
@@ -26,6 +24,21 @@ $(document).ready(function () {
     } else if (accion == "registro-imprimir") {
       const url = `./modules/Equipo/reports/custodios.php?id=${id}`;
       window.open(url);
+    }
+  }); // -------------------------- TABLA --------------------------
+  $("#TablaDisponibles2").on("click", "button", function () {
+    // Obtener el id que trae el botón
+    let id = $(this).attr("data-id2");
+    idRegistro = id;
+    console.log(id);
+    // Obtener la acción a realizar
+    let accion = $(this).attr("name");
+
+    // Dependiendo del botón al que se le hace click
+    // se realizará una acción transmitida por el atributo name
+    if (accion == "registro-baja") {
+      // Llamamos a la alerta para eliminar
+      mandarBaja(id);
     }
   });
   // evento change del select
@@ -205,7 +218,6 @@ $(document).ready(function () {
   });
   $("#proyecto2").on("change", function () {
     const valor = $("#proyecto2").val();
-
   });
 });
 
@@ -222,7 +234,6 @@ function guardarDatos(losDatos) {
     },
     // Petición exitosa
     success: function (respuesta) {
-      console.log(respuesta);
       const resp = JSON.parse(respuesta);
       console.log(resp);
 
@@ -342,10 +353,10 @@ function listarEquipo() {
           className: "text-left",
 
           render: function (data, types, full, meta) {
-            let btnModificar = `<button data-id = ${full.equipoID} name="registro-editar" class="btn btn-outline-primary" type="button" data-toggle="tooltip" data-placement="top" title="Editar productor">
+            let btnModificar = `<button data-id = ${full.equipoID} name="registro-editar2" class="btn btn-outline-primary" type="button" data-toggle="tooltip" data-placement="top" title="Editar productor">
                                       <i class="fas fa-pencil-alt"></i>
                                     </button>`;
-            let btnEliminar = `<button data-marco = ${full.equipoID} name="registro-eliminar" class="btn btn-outline-danger" type="button" data-toggle="tooltip" data-placement="top" title="Eliminar productor">
+            let btnEliminar = `<button data-id2 = ${full.equipoID} name="registro-baja" class="btn btn-outline-danger" type="button" data-toggle="tooltip" data-placement="top" title="Eliminar productor">
                                     <i class="fas fa-trash"></i>
                                   </button>`;
             return ` ${btnEliminar}  ${btnModificar}`;
@@ -354,6 +365,44 @@ function listarEquipo() {
       ];
       // Llamado a la función para crear la tabla con los datos
       cargarTabla("#TablaDisponibles2", datos, columns);
+    },
+  });
+}
+function listarTodo() {
+  // POST  // GET   POST -Envia Recibe   | GET RECEPCIÓ
+  $.ajax({
+    type: "GET",
+    url: "./modules/Equipo/Controllers/todo.php",
+    data: {},
+    // Error en la petición
+    error: function (error) {
+      console.log(error);
+    },
+    // Petición exitosa
+    success: function (respuesta) {
+      let datos = JSON.parse(respuesta);
+      var columns = [
+        {
+          mDataProp: "codigoSAP",
+        },
+        {
+          mDataProp: "np",
+        },
+        {
+          mDataProp: "nombreMarca",
+        },
+        {
+          mDataProp: "nombreModelo",
+        },
+        {
+          mDataProp: "serie",
+        },
+        {
+          mDataProp: "descripcion",
+        },
+      ];
+      // Llamado a la función para crear la tabla con los datos
+      cargarTabla("#todo", datos, columns);
     },
   });
 }
@@ -487,7 +536,7 @@ function cargarTabla(tableID, data, columns) {
 }
 
 function eliminarAsignacion(id) {
-  console.log(id);
+  console.log(1);
   Swal.fire({
     title: "¿Está seguro?",
     text: "La asignacion de este equipo se eliminara, pero quedara en el historico",
@@ -538,6 +587,66 @@ function eliminarAsignacion(id) {
               title: "Cagada",
               icon: "error",
               text: `Ocurrió un error al intentar eliminar la asignacion.`,
+              confirmButtonColor: "#3085d6",
+            });
+          }
+        },
+      });
+    }
+  });
+}
+function mandarBaja(id) {
+  console.log(id);
+  Swal.fire({
+    title: "¿Está seguro?",
+    text: "Este equipo pasara a un estado inactivo, pero quedara en el historico",
+    icon: "question",
+    showCancelButton: true,
+    confirmButtonColor: "#3085D6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Eliminar",
+    cancelButtonText: "Cancelar",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      $.ajax({
+        type: "POST",
+        url: "./modules/Equipo/Controllers/baja.php",
+        data: {
+          recio: id,
+        },
+        // Error en la petición
+        error: function (error) {
+          console.log(error);
+          Swal.fire({
+            title: "Cagada mi dog",
+            icon: "error",
+            text: "una cosa te pido y la estas cagando",
+            confirmButtonColor: "#3085d6",
+          });
+        },
+        // Petición exitosa
+        success: function (respuesta) {
+          console.log(respuesta);
+          const datos = JSON.parse(respuesta);
+
+          // Eliminado correctamente
+          if (datos[0].status == 200) {
+            Swal.fire({
+              title: "Listo calixto",
+              icon: "success",
+              text: `${datos[0].mensaje}`,
+              confirmButtonColor: "#3085d6",
+            });
+
+            // Actualizar los datos en tabla
+            listarAsignaciones();
+          }
+          // Error
+          else {
+            Swal.fire({
+              title: "Cagada",
+              icon: "error",
+              text: `Ocurrió un error al intentar inactivar equipo.`,
               confirmButtonColor: "#3085d6",
             });
           }

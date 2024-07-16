@@ -13,12 +13,13 @@ class mdlEquipos
     public function guardarAsignacionEquipo($losDatos)
     {
 
-        $recio = "	INSERT INTO inventario.asignaciones (equipoID,usuarioID,fechaAsignacion,estadoID,observaciones) VALUES (:equipoID,:usuarioID,:fechaAsignacion,3,:observaciones)";
+        $recio = "INSERT INTO inventario.asignaciones (equipoID,usuarioID,fechaAsignacion,estadoID,observaciones) VALUES (:equipoID,:usuarioID,:fechaAsignacion,3,:observaciones)";
+
         $stmt = $this->conn->prepare($recio);
         $stmt->bindParam(":equipoID", $losDatos->equipoID);
         $stmt->bindParam(":usuarioID", $losDatos->usuarioID);
         $stmt->bindParam(":fechaAsignacion", $losDatos->fechaAsignacion);
-        $stmt->bindParam(":observaciones", $losDatos->Observaciones);
+        $stmt->bindParam(":observaciones", $losDatos->observaciones);
 
 
         try {
@@ -29,12 +30,14 @@ class mdlEquipos
             );
 
             $resultado = json_encode($response);
+            echo $resultado;
         } catch (PDOException $e) {
             $res = $stmt->errorInfo();
             $resultado  = json_encode($res);
+            echo $resultado;
         }
 
-        echo $resultado;
+
         return $resultado;
     }
     public function listarEquipoAsignado()
@@ -74,7 +77,26 @@ class mdlEquipos
         $stmt->closeCursor();
         return $resultado;
     }
+    public function listarTodo()
+    {
 
+        $Equipo = "SELECT 
+        e.equipoID,e.categoriaID,e.estadoID,e.fechaAdquisicion,precioAdquisicion,ubicacionID,e.proyectoID,p.nombreProyecto AS np,proveedorID,descripcionGeneral,
+        e.serie,e.codigoSAP,e.marcaID,e.modeloID,ma.nombreMarca,m.nombreModelo,es.descripcion FROM inventario.equipo AS e
+        INNER JOIN inventario.proyectos AS p on e.proyectoID = p.proyectoID
+        INNER JOIN inventario.modelos AS m ON e.modeloID = m.modeloID 
+        INNER JOIN inventario.marcas AS ma ON e.marcaID = ma.marcaID
+		INNER JOIN inventario.estados AS es ON e.estadoID = es.estadoID ";
+        $stmt = $this->conn->prepare($Equipo);
+        try {
+            $stmt->execute();
+            $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            $resultado = $e->getMessage();
+        }
+        $stmt->closeCursor();
+        return $resultado;
+    }
     public function EliminarAsignacion($asignacionID)
     {
         $sql = "UPDATE inventario.asignaciones SET estadoID = 4 WHERE asignacionID = :asignacionID";
@@ -98,6 +120,28 @@ class mdlEquipos
         return $resultado;
     }
 
+    public function baja($equipoID)
+    {
+        $sql = "UPDATE inventario.equipo SET estadoID = 2 WHERE equipoID = :equipoID";
+        $stmt = $this->conn->prepare($sql);
+
+        $stmt->bindParam(":equipoID", $equipoID);
+
+        try {
+            $stmt->execute();
+            $response[0] = array(
+                'status'  => '200',
+                'mensaje' => 'Actualización exitosa',
+            );
+            $resultado = json_encode($response);
+            echo $resultado;
+        } catch (PDOException $e) {
+            $resultado = $e->getMessage();
+            echo $resultado;
+        }
+        $stmt->closeCursor();
+        return $resultado;
+    }
     public function guardarEquipo($losDatos)
     {
 

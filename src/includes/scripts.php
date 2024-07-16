@@ -108,7 +108,7 @@ if (!empty($_GET['module'])) {
   }
 
   if ($_GET['module'] == 'categorias') {
-    echo '<script src="./modules/categorias/js/categoria.js"></script>';
+    echo '<script src="./modules/Parametrizacion/categorias/js/categorias.js"></script>';
   }
   if ($_GET['module'] == 'usuario') {
     echo '<script src="./modules/usuarios/js/usuario.js"></script>';
@@ -121,6 +121,9 @@ if (!empty($_GET['module'])) {
   }
   if ($_GET['module'] == 'modelos') {
     echo '<script src="./modules/Parametrizacion/modelos/js/modelo.js"></script>';
+  }
+  if ($_GET['module'] == 'kit') {
+    echo '<script src="./modules/kit/modelos/js/kit.js"></script>';
   }
 } else {
   //echo '<script src="/modules/home/"></script>';

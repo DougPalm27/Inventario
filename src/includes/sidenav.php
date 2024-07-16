@@ -17,7 +17,7 @@
       </li>
       <li class="nav-item">
         <a class="nav-link collapsed" href="?module=equipo">
-          <i class="bi bi-display"></i>
+          <i class="bi bi-laptop"></i>
           <span>Equipo</span>
         </a>
       </li><!-- End Profile Page Nav -->
@@ -25,6 +25,12 @@
         <a class="nav-link collapsed" href="?module=lineaClaro">
           <i class="bi bi-phone"></i>
           <span>Lineas Moviles</span>
+        </a>
+      </li><!-- End Profile Page Nav -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="?module=kit">
+          <i class="bi bi-palette2"></i>
+          <span>Kit Agronomo</span>
         </a>
       </li><!-- End Profile Page Nav -->
       <li class="nav-item" hidden>
