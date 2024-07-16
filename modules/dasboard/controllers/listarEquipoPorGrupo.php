@@ -1,4 +1,3 @@
- <!-- método para listar equipo por proyecto -->
 
  <?php
     include_once "../../../config/Connection.php";

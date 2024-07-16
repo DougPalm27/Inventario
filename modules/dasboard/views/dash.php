@@ -115,44 +115,17 @@
                 </div>
                 <!-- End Kit de agroinumos -->
 
-                
+
                 <div class="col-lg-6">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Bar Chart</h5>
+                            <h5 class="card-title">Equipos por categoría</h5>
 
                             <!-- Bar Chart -->
                             <div id="barChart"></div>
 
                             <script>
-                            document.addEventListener("DOMContentLoaded", () => {
-                                new ApexCharts(document.querySelector("#barChart"), {
-                                    series: [{
-                                        data: [400, 430, 448, 470, 540, 580, 690, 1100, 1200,
-                                            1380
-                                        ]
-                                    }],
-                                    chart: {
-                                        type: 'bar',
-                                        height: 350
-                                    },
-                                    plotOptions: {
-                                        bar: {
-                                            borderRadius: 4,
-                                            horizontal: true,
-                                        }
-                                    },
-                                    dataLabels: {
-                                        enabled: false
-                                    },
-                                    xaxis: {
-                                        categories: ['South Korea', 'Canada', 'United Kingdom',
-                                            'Netherlands', 'Italy', 'France', 'Japan',
-                                            'United States', 'China', 'Germany'
-                                        ],
-                                    }
-                                }).render();
-                            });
+                            
                             </script>
                             <!-- End Bar Chart -->
 
@@ -163,25 +136,13 @@
                 <div class="col-lg-6">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Donut Chart</h5>
+                            <h5 class="card-title">Equipos por proyecto</h5>
 
                             <!-- Donut Chart -->
                             <div id="donutChart"></div>
 
                             <script>
-                            document.addEventListener("DOMContentLoaded", () => {
-                                new ApexCharts(document.querySelector("#donutChart"), {
-                                    series: [44, 55, 13, 43, 22],
-                                    chart: {
-                                        height: 350,
-                                        type: 'donut',
-                                        toolbar: {
-                                            show: true
-                                        }
-                                    },
-                                    labels: ['Team A', 'Team B', 'Team C', 'Team D', 'Team E'],
-                                }).render();
-                            });
+                            
                             </script>
                             <!-- End Donut Chart -->
 
@@ -193,7 +154,7 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title">Column Chart</h5>
+                            <h5 class="card-title">Lineas por estado de asignación</h5>
 
                             <!-- Column Chart -->
                             <div id="columnChart"></div>

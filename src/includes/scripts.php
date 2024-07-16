@@ -76,8 +76,9 @@ mar -->
 
 <!-- Carga de  js según el módulo-->
 <?php
+echo '<script src="./modules/dasboard/js/dash.js"></script>';  
 if (!empty($_GET['module'])) {
-  //echo '<script src="./modules/home/views/home.js"></script>';  
+  
   if ($_GET['module'] == 'listadoProductores') {
     echo '<script src="./modules/productores/js/listaProductor.js"></script>';
   }
