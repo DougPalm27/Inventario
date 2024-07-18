@@ -17,7 +17,8 @@
                     <button class="nav-link w-100 active" id="asignadas" data-bs-toggle="tab" data-bs-target="#home-justified" type="button" role="tab" aria-controls="home" aria-selected="true">Lineas Asignadas</button>
                 </li>
                 <li class="nav-item flex-fill" role="presentation">
-                    <button class="nav-link w-100" id="lineas" data-bs-toggle="tab" data-bs-target="#profile-justified" type="button" role="tab" aria-controls="profile" aria-selected="false">Lineas Disponibles</button>
+                    <button class="nav-link w-100" id="lineas" data-bs-toggle="tab" data-bs-target="#profile-justified" type="button" role="tab" aria-controls="profile" aria-selected="false">Lineas
+                        Disponibles</button>
                 </li>
                 <li class="nav-item flex-fill" role="presentation">
                     <button class="nav-link w-100" id="dispositivos" data-bs-toggle="tab" data-bs-target="#contact-justified" type="button" role="tab" aria-controls="contact" aria-selected="false">Dispositivos Disponibles</button>
@@ -26,11 +27,11 @@
                     <button class="nav-link w-100" id="original" data-bs-toggle="tab" data-bs-target="#contact-justified" type="button" role="tab" aria-controls="contact" aria-selected="false">Listado Original</button>
                 </li>
             </ul>
-            
+
             <div class="tab-content pt-2" id="myTabjustifiedContent">
                 <div class="tab-pane fade show active" id="home-justified" role="tabpanel" aria-labelledby="home-tab">
                     <div class="col-md-12 table-responsive">
-                        <table class="table align-items-center table-flush table-striped" id="TablaLineas" name="TablaLineas">
+                        <table class="table align-items-center table-flush table-striped" id="TablaLineas" name="TablaLineas" width="100%" ;>
                             <thead class="thead-dark">
                                 <tr>
                                     <th scope="col">Linea</th>
@@ -49,15 +50,13 @@
                 </div>
                 <div class="tab-pane fade" id="profile-justified" role="tabpanel" aria-labelledby="profile-tab">
                     <div class="col-md-12 table-responsive">
-                        <table class="table align-items-center table-flush table-striped" id="TablaLineasS" name="TablaLineas">
+                        <table class="table align-items-center table-flush table-striped" id="TablaLineasS" name="TablaLineas" width="100%">
                             <thead class="thead-dark">
                                 <tr>
                                     <th scope="col">Linea</th>
-                                    <th scope="col">Asignado a</th>
                                     <th scope="col">Proyecto</th>
                                     <th scope="col">Marca</th>
                                     <th scope="col">Modelo</th>
-                                    <th scope="col">Estado</th>
                                     <th scope="col">Acciones</th>
                                 </tr>
                             </thead>
@@ -86,7 +85,7 @@
                     <form id="modalLineas" name="modalLineas" class="row g-3 p-4" novalidate>
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="numeroLinea" name="numerolinea" placeholder="City"  require>
+                                <input type="text" class="form-control" id="numeroLinea" name="numerolinea" placeholder="City" require>
                                 <label for="floatingCity">Número Linea</label>
 
                             </div>
@@ -101,13 +100,13 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <input type="date" class="form-control" id="fechaActivacion" php-email-form  name="fechaActivacion">
+                                <input type="date" class="form-control" id="fechaActivacion" php-email-form name="fechaActivacion">
                                 <label>Fecha de Activación</label>
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <div class="form-floating mb-3">
-                                <select class="form-select" id="marca" name="marca">
+                            <div class="form-floating floating-select2 mb-3">
+                                <select class="form-select Select2Modal" id="marca" name="marca">
                                     <option selected>Selecciona una Marca</option>
                                 </select>
                                 <label for="floatingSelect">Marca</label>
@@ -144,8 +143,10 @@
             </div>
 
             <div class="modal-footer">
-                <a type="submit" class="btn btn-primary" id="btnGuardarLinea"><i class="bi bi-cloud-check-fill"></i> Guardar</a>
-                <a type="reset" class="btn btn-secondary" id="btnLimpiarModal"><i class="bi bi-cloud-fog2"></i> Limpiar</a>
+                <a type="submit" class="btn btn-primary" id="btnGuardarLinea"><i class="bi bi-cloud-check-fill"></i>
+                    Guardar</a>
+                <a type="reset" class="btn btn-secondary" id="btnLimpiarModal"><i class="bi bi-cloud-fog2"></i>
+                    Limpiar</a>
             </div>
         </div>
     </div>
@@ -221,7 +222,8 @@
             </div>
             <div class="modal-footer">
                 <a type="submit" class="btn btn-primary" id="btnGuardarAsignarLinea"><i class="bi bi-cloud-check-fill"></i> Guardar</a>
-                <a type="reset" class="btn btn-secondary" id="btnLimpiarModalLinea"><i class="bi bi-cloud-fog2"></i> Limpiar</a>
+                <a type="reset" class="btn btn-secondary" id="btnLimpiarModalLinea"><i class="bi bi-cloud-fog2"></i>
+                    Limpiar</a>
             </div>
         </div>
     </div>

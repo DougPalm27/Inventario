@@ -1,11 +1,15 @@
 $(document).ready(function () {
-  listarLineas();
+  // listarLineas();
   listarMarcas();
-  listarModelos();
   listarProyecto();
   listarUsuarios();
   listarLineasDisponibles();
-  listarCelularesDisponibles();
+  listarCelularesDisponibles();  
+
+ //evento para cargar modelos
+  $('#marca').on('change', function(){
+    listarModelos($(this).val());
+  });
 
   // evento click del botón guardar
   $("#btnGuardarLinea").on("click", function () {
@@ -13,8 +17,8 @@ $(document).ready(function () {
       numeroLinea: $("#numeroLinea").val(),
       fechaActivacion: $("#fechaActivacion").val(),
       codigoProyecto: $("#codigoProyecto").val(),
-      marca: $("#marca option:selected").text(),
-      modelo: $("#modelo option:selected").text(),
+      marca: $("#marca").val(),
+      modelo: $("#modelo").val(),
       Imei: $("#Imei").val(),
       fechaRenovacion: $("#fechaRenovacion").val(),
       fechaVencimiento: $("#fechaVencimiento").val(),
@@ -29,9 +33,9 @@ $(document).ready(function () {
         "Error en los siguientes campos:\n" + errores.join("\n");
       swal.fire("Seccion de Equipo", mensajeError, "warning");
     } else {
-      console.log(losDatos);
-      guardarNuevaLinea(losDatos);
+      guardarNuevaLinea(losDatos);      
     }
+
   });
   //evento click del boton guardar en modal Asiganciones
   $("#btnGuardarAsignarLinea").on("click", function () {
@@ -85,6 +89,9 @@ $(document).ready(function () {
     const sugerencia = $('select[name="linea2"] option:selected').attr(
       "data-sugerencia"
     );
+
+
+    $("#sugerencia").empty();
     $("#sugerencia").append(
       `<div class="col-md-12 alert alert-success bg-success text-light border-0 alert-dismissible fade show" role="alert">
         El dispositivo sugerido para esta línea es: ${sugerencia}
@@ -117,7 +124,9 @@ function guardarNuevaLinea(losDatos) {
       console.log(resp);
 
       if (resp[0].status == "200") {
-        swal.fire("Lineas", "Linea registrada Correctamente", "success");
+        swal.fire("Lineas", "Linea registrada Correctamente", "success").then(() => {
+          window.location.href ='?module=lineaClaro';
+        });     
       } else {
         swal.fire("Lineas", respuesta, "warning");
       }
@@ -145,12 +154,14 @@ function listarProyecto() {
     },
   });
 }
-function listarModelos() {
+function listarModelos(id) {
   // POST  // GET   POST -Envia Recibe   | GET RECEPCIÓ
   $.ajax({
-    type: "GET",
+    type: "POST",
     url: "./modules/Lineas/controllers/listarModelo.php",
-    data: {},
+    data: {
+      id:id
+    },
     // Error en la petición
     error: function (error) {
       console.log(error);
@@ -158,6 +169,7 @@ function listarModelos() {
     // Petición exitosa
     success: function (respuesta) {
       let datos = JSON.parse(respuesta);
+      $('#modelo').empty();
       datos.forEach((e) => {
         $("#modelo").append(
           `<option value="${e.modeloID}">${e.nombreModelo}</option>`
@@ -179,6 +191,7 @@ function listarMarcas() {
     // Petición exitosa
     success: function (respuesta) {
       let datos = JSON.parse(respuesta);
+      
       datos.forEach((e) => {
         $("#marca").append(
           `<option value="${e.marcaID}">${e.nombreMarca}</option>`
@@ -187,6 +200,8 @@ function listarMarcas() {
     },
   });
 }
+
+
 function listarLineas() {
   // Petición
   $.ajax({
@@ -266,11 +281,49 @@ function listarLineasDisponibles() {
     },
     // Petición exitosa
     success: function (respuesta) {
+      console.log(respuesta);
+
       let datos = JSON.parse(respuesta);
+      
       datos.forEach((e) => {
         $("#linea2").append(
           `<option data-sugerencia="${e.IMEI} ${e.Modelo} ${e.Marca}"  data-proyecto="${e.nombreProyecto}" value="${e.lineaID}">${e.numeroLinea}</option>`
         );
+
+        var columns = [
+          {
+            mDataProp: "numeroLinea",
+          },
+          {
+            mDataProp: "nombreProyecto",
+          },
+          {
+            mDataProp: "marcaT",
+          },
+          {
+            mDataProp: "modeloT",
+          },
+          {
+            className: "text-left",
+            render: function (data, types, full, meta) {
+              let btnModificar = `<button data-id = ${full.lineaID} name="registro-editar" class="btn btn-outline-primary" type="button" data-toggle="tooltip" data-placement="top" title="Editar productor">
+                                      <i class="fas fa-pencil-alt"></i>
+                                    </button>`;
+  
+              let btnVer = `<button data-id = ${full.lineaID} name="registro-editar" class="btn btn-outline-success" type="button" data-toggle="tooltip" data-placement="top" title="Editar productor">
+                                      <i class="fas fa-eye"></i>
+                                    </button>`;
+  
+              let btnEliminar = `<button data-marco = ${full.lineaID} name="registro-eliminar" class="btn btn-outline-danger" type="button" data-toggle="tooltip" data-placement="top" title="Eliminar productor">
+                                    <i class="fas fa-trash"></i>
+                                  </button>`;
+              return ` ${btnEliminar} ${btnVer} ${btnModificar}`;
+            },
+          },
+        ];
+        // Llamado a la función para crear la tabla con los datos
+        cargarTabla("#TablaLineasS", datos, columns);
+        
       });
     },
   });
@@ -288,6 +341,7 @@ function listarCelularesDisponibles() {
     // Petición exitosa
     success: function (respuesta) {
       let datos = JSON.parse(respuesta);
+      console.log(datos)
       datos.forEach((e) => {
         $("#Imei2").append(
           `<option value="${e.lineaDetalleID}">${e.IMEI} ${e.Modelo} ${e.Marca}</option>`
