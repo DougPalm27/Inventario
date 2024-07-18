@@ -28,7 +28,12 @@ class mdlLineas
     //Metodo para cargarLineas
     public function listarLineasActivas()
     {
-        $sql = "SELECT * FROM inventario.vw_lineasDisponibles";
+        $sql = "SELECT 
+	*  
+FROM 
+	inventario.lineas
+WHERE 
+	lineaID NOT IN (SELECT lineaID FROM inventario.lineasAsignacion WHERE estadoID = 3)";
         $exec = $this->conn->prepare($sql);
 
         try {

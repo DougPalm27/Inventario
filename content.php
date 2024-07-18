@@ -31,6 +31,7 @@ if($valor!=1){
         $_GET['module'] == 'marcas' ? include "./modules/Parametrizacion/marcas/views/marcas.php" : false ;
         $_GET['module'] == 'modelos' ? include "./modules/Parametrizacion/modelos/views/modelos.php" : false ;   
         $_GET['module'] == 'kit' ? include "./modules/Kit/views/vw_Kit.php" : false ; 
+        $_GET['module'] == 'dasboard' ? include "./modules/dasboard/views/dash.php" : false ; 
     }
 }
 ?>
