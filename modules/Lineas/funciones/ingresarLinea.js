@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  // listarLineas();
+  listarLineas();
   listarMarcas();
   listarProyecto();
   listarUsuarios();
@@ -9,6 +9,17 @@ $(document).ready(function () {
  //evento para cargar modelos
   $('#marca').on('change', function(){
     listarModelos($(this).val());
+  });
+
+  // Select para modales
+  $('.Select2Modal1').select2({
+    width: "100%",
+    dropdownParent: $('#ExtralargeModal'),
+  });
+
+  $('.Select2Modal').select2({
+    width: "100%",
+    dropdownParent: $('#asignarLineaModal'),
   });
 
   // evento click del botón guardar
@@ -234,11 +245,11 @@ function listarLineas() {
           width: "15%",
         },
         {
-          mDataProp: "Marca",
+          mDataProp: "nombreMarca",
           width: "10%",
         },
         {
-          mDataProp: "Modelo",
+          mDataProp: "nombreModelo",
           width: "25%",
         },
         {
@@ -281,13 +292,13 @@ function listarLineasDisponibles() {
     },
     // Petición exitosa
     success: function (respuesta) {
-      console.log(respuesta);
+      // console.log(respuesta);
 
       let datos = JSON.parse(respuesta);
       
       datos.forEach((e) => {
         $("#linea2").append(
-          `<option data-sugerencia="${e.IMEI} ${e.Modelo} ${e.Marca}"  data-proyecto="${e.nombreProyecto}" value="${e.lineaID}">${e.numeroLinea}</option>`
+          `<option data-sugerencia="${e.IMEI} ${e.marcaT} ${e.modeloT}"  data-proyecto="${e.nombreProyecto}" value="${e.lineaID}">${e.numeroLinea}</option>`
         );
 
         var columns = [
@@ -341,15 +352,16 @@ function listarCelularesDisponibles() {
     // Petición exitosa
     success: function (respuesta) {
       let datos = JSON.parse(respuesta);
-      console.log(datos)
+      // console.log(datos)
       datos.forEach((e) => {
         $("#Imei2").append(
-          `<option value="${e.lineaDetalleID}">${e.IMEI} ${e.Modelo} ${e.Marca}</option>`
+          `<option value="${e.lineaDetalleID}">${e.IMEI} ${e.nombreMarca} ${e.nombreModelo}</option>`
         );
       });
     },
   });
 }
+
 function cargarTabla(tableID, data, columns) {
   $(tableID).dataTable().fnClearTable();
   $(tableID).dataTable().fnDestroy();
@@ -484,6 +496,7 @@ function asignarLinea(losDatos) {
     },
   });
 }
+
 function listarUsuarios() {
   // POST  // GET   POST -Envia Recibe   | GET RECEPCIÓ
   $.ajax({
@@ -497,6 +510,7 @@ function listarUsuarios() {
     // Petición exitosa
     success: function (respuesta) {
       let datos = JSON.parse(respuesta);
+      
       datos.forEach((e) => {
         $("#usuario").append(
           `<option value="${e.UsuarioID}" data-codigo="${e.codigoUsuario}">${e.nombre}</option>`
