@@ -312,7 +312,7 @@ function listarLineasDisponibles() {
             mDataProp: "marcaT",
           },
           {
-            mDataProp: "modeloT",
+            mDataProp: "modeloT",   
           },
           {
             className: "text-left",
