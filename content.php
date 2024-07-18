@@ -27,7 +27,7 @@ if ($valor != 1) {
         $_GET['module'] == 'asignacion' ? include "./modules/Asignaciones/view/asignacion.php" : false ;
         $_GET['module'] == 'categorias' ? include "./modules/Parametrizacion/categorias/views/categorias.php" : false ;
         $_GET['module'] == 'usuario' ? include "./modules/usuarios/views/formularioUsuario.php" : false ;
-        $_GET['module'] == 'lineaClaro' ? include "./recios/pages-error-404.html" : false ;
+        $_GET['module'] == 'lineaClaro' ? include "./modules/Lineas/views/lineas.php" : false ;
         $_GET['module'] == 'marcas' ? include "./modules/Parametrizacion/marcas/views/marcas.php" : false ;
         $_GET['module'] == 'modelos' ? include "./modules/Parametrizacion/modelos/views/modelos.php" : false ;   
         $_GET['module'] == 'kit' ? include "./modules/Kit/views/vw_Kit.php" : false ; 

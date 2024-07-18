@@ -1,7 +1,16 @@
 
 $(document).ready(function () {
 
-    $("guardarKit")
+    $("guardarKit").on("click",function(){
+    let losDatos = {
+        descripcion : $("descripcion3").val(),
+        precio : $("precio").val(),
+        
+
+    }
+
+
+    })
 
 
 

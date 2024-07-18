@@ -11,7 +11,7 @@ class mdlLineas
 
 
     //Metodo para cargarLineas
-    public function listarLineas()
+    public function listarAsignaciones()
     {
         $sql = "SELECT * FROM inventario.vw_AsignacionesLineas";
         $exec = $this->conn->prepare($sql);
@@ -177,14 +177,12 @@ WHERE
     }
     public function listarImei()
     {
-        $sql = "SELECT 
-                    *
-                FROM  
-                    inventario.lineasDetalle AS ld
-                INNER JOIN 
-                    inventario.marcas As ms ON ld.Marca = ms.marcaID
-                INNER JOIN 
-                    inventario.modelos AS md ON ld.Modelo = md.modeloID";
+        $sql = "SELECT 	*  	FROM 
+	inventario.lineasDetalle as ld
+	INNER JOIN inventario.marcas As ms ON ld.Marca = ms.marcaID
+	INNER JOIN inventario.modelos AS md ON ld.Modelo = md.modeloID
+	WHERE 
+	lineaDetalleID NOT IN (SELECT dispositivoID FROM inventario.lineasAsignacion WHERE estadoID = 3)";
         $exec = $this->conn->prepare($sql);
 
         try {
