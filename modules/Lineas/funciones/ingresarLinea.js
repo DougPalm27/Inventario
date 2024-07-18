@@ -3,7 +3,7 @@ $(document).ready(function () {
   listarMarcas();
   listarProyecto();
   listarUsuarios();
-  listarLineasDisponibles();
+  listarLineasDisponibles(); 
   listarCelularesDisponibles();  
 
  //evento para cargar modelos
@@ -59,13 +59,13 @@ $(document).ready(function () {
     console.log(losDatos);
     // Verificar si hay errores
 
-    if (losDatos.usuarioID === -1) {
+    if (losDatos.usuarioID == -1) {
       swal.fire("Atención, debes Seleccionar un usuario", "", "warning");
-    } else if (losDatos.lineaID === -1) {
+    } else if (losDatos.lineaID == -1) {
       swal.fire("Atención, debes Seleccionar una línea", "", "warning");
-    } else if (losDatos.dispositivoID === -1) {
+    } else if (losDatos.dispositivoID == -1) {
       swal.fire("Atención, debes Seleccionar un dispositivo", "", "warning");
-    } else if (losDatos.fechaAsignacion === '') {
+    } else if (losDatos.fechaAsignacion == '') {
       swal.fire("Atención, debes Seleccionar una fecha válida", "", "warning");
     } else {
       asignarLinea(losDatos);
@@ -487,7 +487,7 @@ function asignarLinea(losDatos) {
         if (resp[0].status == "200") {
           swal.fire("Lineas", "Linea asignada Correctamente", "success");
         } else {
-          swal.fire("Lineas", resp[0].message, "warning");
+          swal.fire("PER", resp[0].message, "warning");
         }
       } catch (error) {
         console.error("Error al analizar JSON:", error);

@@ -2,13 +2,13 @@
   <aside id="sidebar" class="sidebar">
 
     <ul class="sidebar-nav" id="sidebar-nav">
-
-      <!-- <li class="nav-item">
-        <a class="nav-link " href="index.html">
+      <li class="nav-item">
+        <a class="nav-link " href="?module=dasboard">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
-      </li>End Dashboard Nav -->
+      </li>
+
       <li hidden class="nav-item">
         <a class="nav-link collapsed" href="?module=asignacion">
           <i class="bi bi-arrow-up-right-square-fill"></i>

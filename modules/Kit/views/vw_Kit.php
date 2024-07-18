@@ -27,15 +27,13 @@
             <div class="tab-content pt-2" id="myTabjustifiedContent">
                 <div class="tab-pane fade show active" id="ss" role="tabpanel" aria-labelledby="home-tab">
                     <div class="col-md-12 table-responsive">
-                        <table class="table align-items-center table-flush table-striped" id="TablaAsignaciones" name="TablaAsignaciones">
+                        <table class="table align-items-center table-flush table-striped" id="TablaKit1" name="TablaAsignaciones">
                             <thead class="thead-dark">
                                 <tr>
                                     <th scope="col">Codigo SAP</th>
                                     <th scope="col">Asignado a</th>
+                                    <th scope="col">Kit</th>
                                     <th scope="col">Proyecto</th>
-                                    <th scope="col">Marca</th>
-                                    <th scope="col">Modelo</th>
-                                    <th scope="col">Serie</th>
                                     <th scope="col">Acciones</th>
                                 </tr>
                             </thead>
@@ -46,14 +44,12 @@
                 </div>
                 <div class="tab-pane fade" id="disponible" role="tabpanel" aria-labelledby="profile-tab">
                     <div class="col-md-12 table-responsive">
-                        <table class="table align-items-center table-flush table-striped" id="TablaDisponibles2" name="TablaDisponibles2" width="100%">
+                        <table class="table align-items-center table-flush table-striped" id="TablaKit2" name="TablaDisponibles2" width="100%">
                             <thead class="thead-dark">
                                 <tr>
                                     <th scope="col">Codigo SAP</th>
+                                    <th scope="col">Kit</th>
                                     <th scope="col">Proyecto</th>
-                                    <th scope="col">Marca</th>
-                                    <th scope="col">Modelo</th>
-                                    <th scope="col">Serie</th>
                                     <th scope="col">Acciones</th>
                                 </tr>
                             </thead>
@@ -64,7 +60,7 @@
                 </div>
                 <div class="tab-pane fade" id="dtodo" role="tabpanel" aria-labelledby="profile-tab">
                     <div class="col-md-12 table-responsive">
-                        <table class="table align-items-center table-flush table-striped" id="todo" name="todo" width="100%">
+                        <table class="table align-items-center table-flush table-striped" id="TablaKit3" name="todo" width="100%">
                             <thead class="thead-dark">
                                 <tr>
                                     <th scope="col">Codigo SAP</th>
@@ -170,7 +166,7 @@
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Asignar Equipo</h5>
+                <h5 class="modal-title">Asignar Kit</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="card">
@@ -196,7 +192,7 @@
                                 <select class="form-select" id="equipoID" name="equipoID" aria-label="State">
                                     <option selected value="-1">Selecciona un Equipo</option>
                                 </select>
-                                <label for="floatingSelect">Equipo a asignar</label>
+                                <label for="floatingSelect">Kit a asignar</label>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -234,7 +230,7 @@
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Crear registro de nuevo equipo</h5>
+                <h5 class="modal-title">Crear registro de nuevo kit</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="card">
@@ -276,8 +272,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <a type="submit" class="btn btn-primary" id="btnEquipo"><i class="bi bi-cloud-check-fill"></i> Guardar</a>
-                <a type="reset" class="btn btn-secondary" id="btnLimpiarModalEquipo"><i class="bi bi-cloud-fog2"></i> Limpiar</a>
+                <a type="submit" class="btn btn-primary" id="btnKit"><i class="bi bi-cloud-check-fill"></i> Guardar</a>
+                <a type="reset" class="btn btn-secondary" id="btnLimpiarModalKit"><i class="bi bi-cloud-fog2"></i> Limpiar</a>
             </div>
         </div>
     </div>
