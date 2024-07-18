@@ -7,16 +7,17 @@
 <script src="./assets/vendor/simple-datatables/simple-datatables.js"></script>
 <script src="./assets/vendor/tinymce/tinymce.min.js"></script>
 <script src="./assets/vendor/php-email-form/validate.js"></script>
-<script src="./assets/js/jquery.js"></script><!-- 
+<script src="./assets/js/jquery.js"></script>
+<!-- 
 mar -->
 <script src="./assets/vendor/apexcharts/apexcharts.min.js"></script>
-  <script src="./assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="./assets/vendor/chart.js/chart.umd.js"></script>
-  <script src="./assets/vendor/echarts/echarts.min.js"></script>
-  <script src="./assets/vendor/quill/quill.min.js"></script>
-  <script src="./assets/vendor/simple-datatables/simple-datatables.js"></script>
-  <script src="./assets/vendor/tinymce/tinymce.min.js"></script>
-  <script src="./assets/vendor/php-email-form/validate.js"></script>
+<script src="./assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="./assets/vendor/chart.js/chart.umd.js"></script>
+<script src="./assets/vendor/echarts/echarts.min.js"></script>
+<script src="./assets/vendor/quill/quill.min.js"></script>
+<script src="./assets/vendor/simple-datatables/simple-datatables.js"></script>
+<script src="./assets/vendor/tinymce/tinymce.min.js"></script>
+<script src="./assets/vendor/php-email-form/validate.js"></script>
 
 
 
@@ -32,25 +33,22 @@ mar -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.28/dist/sweetalert2.all.min.js"></script>
 
 <script>
-  
-  function capitalizeText(text) {
+function capitalizeText(text) {
     return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
-    
-  }
 
-  function eliminarEspacios(cadena) {
+}
+
+function eliminarEspacios(cadena) {
     return cadena ? cadena.replace(/\s/g, '') : "";
-  }
+}
 
-  function contieneCaracteresEspeciales(cadena) {
+function contieneCaracteresEspeciales(cadena) {
     // Expresión regular para buscar caracteres que no sean letras, números o guiones bajos (_)
     var expresionRegular = /[^a-zA-Z0-9_]/;
     return expresionRegular.test(cadena);
+}
 
-
-    
-  }
-  function limpiarTodo(){
+function limpiarTodo() {
     // Limpiar campos de texto y contraseñas
     $("input[type='text']").val("");
     $("input[type='password']").val("");
@@ -64,14 +62,21 @@ mar -->
 
     // Limpiar campos de radio
     $("input[type='radio']").prop("checked", false);
-  }
+}
 
+$(document).ready(function() {
+    $('.Select2Modal').select2({
+        width: "100%",
+        dropdownParent: $('#ExtralargeModal'),
+    });
+});
 </script>
 <!-- Template Main JS File -->
 <script src="./assets/js/main.js"></script>
 
 <!-- Select2 -->
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
 
 
 <!-- Carga de  js según el módulo-->

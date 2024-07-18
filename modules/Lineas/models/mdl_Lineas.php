@@ -47,7 +47,7 @@ WHERE
     }
     public function listarMarca()
     {
-        $sql = "SELECT * FROM inventario.marcas WHERE estadoID=1" ;
+        $sql = "SELECT * FROM inventario.marcas WHERE estadoID=1";
         $exec = $this->conn->prepare($sql);
 
         try {
@@ -59,10 +59,11 @@ WHERE
         $exec->closeCursor();
         return $resultado;
     }
-    public function listarModelo()
+    public function listarModelo($id)
     {
-        $sql = "SELECT * FROM inventario.modelos";
+        $sql = "SELECT * FROM inventario.modelos WHERE marcaID = :id";
         $exec = $this->conn->prepare($sql);
+        $exec->bindParam(':id', $id);
         try {
             $exec->execute();
             $resultado = $exec->fetchAll(PDO::FETCH_ASSOC);
@@ -107,8 +108,8 @@ WHERE
             # Captura del ultimo id insertado de la tabla inventario.lineas
             $idLinea = $this->conn->lastInsertId();
 
-            $sqllineaDetalle = "    INSERT INTO inventario.lineasDetalle (lineaID, Marca, Modelo, IMEI, fechaRenovacion, fechaVencimiento,estadoID)
-                VALUES (:lineaID, :marca, :modelo,:Imei, :fechaRenovacion, :fechaVencimiento,1)";
+            $sqllineaDetalle = "    INSERT INTO inventario.lineasDetalle (lineaID, Marca, Modelo, IMEI, fechaRenovacion, fechaVencimiento)
+                VALUES (:lineaID, :marca, :modelo,:Imei, :fechaRenovacion, :fechaVencimiento)";
             $stmt1 = $this->conn->prepare($sqllineaDetalle);
             $stmt1->bindParam(":lineaID", $idLinea);
             $stmt1->bindParam(":marca", $losDatos->marca);
@@ -122,10 +123,8 @@ WHERE
                 $response[0] = array(
                     'status'  => '200',
                     'mensaje' => 'Bien'
-                );           
+                );
                 $resultado = json_encode($response);
-
-
             } catch (PDOException $e) {
                 $this->conn->rollBack();
                 $errorLineasDetalle = $errorLineasDetalle + 1;
@@ -145,8 +144,8 @@ WHERE
     public function asignarLinea($losDatos)
     {
         $errorLineasDetalle = 0;
-    
-    
+
+
         $sqlasignar = "INSERT INTO inventario.lineasAsignacion (lineaID, usuarioID, dispositivoID, FechaAsignacion, estadoID)
                        VALUES (:lineaID, :usuarioID, :dispositivoID, :FechaAsignacion, 3)";
         $stmt = $this->conn->prepare($sqlasignar);
@@ -154,7 +153,7 @@ WHERE
         $stmt->bindParam(":usuarioID", $losDatos->usuarioID);
         $stmt->bindParam(":dispositivoID", $losDatos->dispositivoID);
         $stmt->bindParam(":FechaAsignacion", $losDatos->fechaAsignacion);
-    
+
         try {
             $stmt->execute();
             // Confirmar transacción si todo está bien
@@ -162,8 +161,8 @@ WHERE
             $response[0] = array(
                 'status'  => '200',
                 'mensaje' => 'Línea asignada correctamente.',
-                
-            );           
+
+            );
             $resultado = json_encode($response);
         } catch (PDOException $e) {
 
@@ -171,10 +170,9 @@ WHERE
             $res = $stmt->errorInfo();
             $resultado = json_encode($res);
         }
-    
+
         // Retornar antes de cerrar el cursor
         $stmt->closeCursor();
         return $resultado;
     }
-    
 }
