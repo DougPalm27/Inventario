@@ -33,22 +33,22 @@ mar -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.28/dist/sweetalert2.all.min.js"></script>
 
 <script>
-function capitalizeText(text) {
+  function capitalizeText(text) {
     return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
 
-}
+  }
 
-function eliminarEspacios(cadena) {
+  function eliminarEspacios(cadena) {
     return cadena ? cadena.replace(/\s/g, '') : "";
-}
+  }
 
-function contieneCaracteresEspeciales(cadena) {
+  function contieneCaracteresEspeciales(cadena) {
     // Expresión regular para buscar caracteres que no sean letras, números o guiones bajos (_)
     var expresionRegular = /[^a-zA-Z0-9_]/;
     return expresionRegular.test(cadena);
-}
+  }
 
-function limpiarTodo() {
+  function limpiarTodo() {
     // Limpiar campos de texto y contraseñas
     $("input[type='text']").val("");
     $("input[type='password']").val("");
@@ -62,14 +62,7 @@ function limpiarTodo() {
 
     // Limpiar campos de radio
     $("input[type='radio']").prop("checked", false);
-}
-
-$(document).ready(function() {
-    $('.Select2Modal').select2({
-        width: "100%",
-        dropdownParent: $('#ExtralargeModal'),
-    });
-});
+  }
 </script>
 <!-- Template Main JS File -->
 <script src="./assets/js/main.js"></script>
@@ -81,9 +74,9 @@ $(document).ready(function() {
 
 <!-- Carga de  js según el módulo-->
 <?php
-echo '<script src="./modules/dasboard/js/dash.js"></script>';  
+echo '<script src="./modules/dasboard/js/dash.js"></script>';
 if (!empty($_GET['module'])) {
-  
+
   if ($_GET['module'] == 'listadoProductores') {
     echo '<script src="./modules/productores/js/listaProductor.js"></script>';
   }

@@ -170,4 +170,25 @@ class mdlLineas
         $stmt->closeCursor();
         return $resultado;
     }
+    public function listarImei()
+    {
+        $sql = "SELECT 
+                    *
+                FROM  
+                    inventario.lineasDetalle AS ld
+                INNER JOIN 
+                    inventario.marcas As ms ON ld.Marca = ms.marcaID
+                INNER JOIN 
+                    inventario.modelos AS md ON ld.Modelo = md.modeloID";
+        $exec = $this->conn->prepare($sql);
+
+        try {
+            $exec->execute();
+            $resultado = $exec->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            $resultado = $e->getMessage();
+        }
+        $exec->closeCursor();
+        return $resultado;
+    }
 }
