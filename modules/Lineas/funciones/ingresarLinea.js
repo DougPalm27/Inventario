@@ -1,10 +1,12 @@
 $(document).ready(function () {
+  $("#btnEditarLinea").hide();
   listarLineas();
   listarMarcas();
   listarProyecto();
   listarUsuarios();
   listarLineasDisponibles(); 
   listarCelularesDisponibles();  
+  historico();
 
  //evento para cargar modelos
   $('#marca').on('change', function(){
@@ -22,6 +24,33 @@ $(document).ready(function () {
     dropdownParent: $('#asignarLineaModal'),
   });
 
+  $("#btnEditarLinea").on("click", function () {
+    let losDatos = {
+      id:$("#idEditar").val(),
+      numeroLinea: $("#numeroLinea").val(),
+      fechaActivacion: $("#fechaActivacion").val(),
+      codigoProyecto: $("#codigoProyecto").val(),
+      marca: $("#marca").val(),
+      modelo: $("#modelo").val(),
+      Imei: $("#Imei").val(),
+      fechaRenovacion: $("#fechaRenovacion").val(),
+      fechaVencimiento: $("#fechaVencimiento").val(),
+    };
+    let errores = [];
+    if (losDatos.numeroLinea == "") {
+      errores.push("Debe ingresar una linea");
+    }
+    // Verificar si hay errores
+    if (errores.length > 0) {
+      let mensajeError =
+        "Error en los siguientes campos:\n" + errores.join("\n");
+      swal.fire("Seccion de Equipo", mensajeError, "warning");
+    } else {
+      // guardarNuevaLinea(losDatos);  
+      // console.log(losDatos);  
+      editarLinea(losDatos)  
+    }
+  });
   // evento click del botón guardar
   $("#btnGuardarLinea").on("click", function () {
     let losDatos = {
@@ -49,6 +78,19 @@ $(document).ready(function () {
 
   });
   //evento click del boton guardar en modal Asiganciones
+  $('#btnNuevaLinea').on('click', function(){
+    $('#ExtralargeModal').modal('show');
+    $("#btnEditarLinea").hide();
+    $("#btnGuardarLinea").show();
+    $('#numeroLinea').val('');
+    $('#codigoProyecto').val('').trigger('change');
+    $('#fechaActivacion').val('');
+    $('#fechaRenovacion').val('');
+    $('#marca').val(-1).trigger('change');
+    $('#modelo').val(-1).trigger('change');
+    $('#Imei').val('');
+  });
+
   $("#btnGuardarAsignarLinea").on("click", function () {
     let losDatos = {
       usuarioID: $("#usuario").val(),
@@ -56,7 +98,7 @@ $(document).ready(function () {
       dispositivoID: $("#Imei2").val(),
       fechaAsignacion: $("#fechaAsignacion").val(),
     };
-    console.log(losDatos);
+    // console.log(losDatos);
     // Verificar si hay errores
 
     if (losDatos.usuarioID == -1) {
@@ -84,7 +126,7 @@ $(document).ready(function () {
   });
   $("#codigoProyecto").on("change", function () {
     const valor = $("#codigoProyecto").val();
-    console.log(valor);
+    // console.log(valor);
   });
   $("#usuario").on("change", function () {
     const codigo = $('select[name="usuario"] option:selected').attr(
@@ -260,18 +302,12 @@ function listarLineas() {
           className: "text-left",
           width: "10%",
           render: function (data, types, full, meta) {
-            let btnModificar = `<button data-id = ${full.lineaID} name="registro-editar" class="btn btn-outline-primary" type="button" data-toggle="tooltip" data-placement="top" title="Editar productor">
-                                    <i class="fas fa-pencil-alt"></i>
-                                  </button>`;
+            
 
-            let btnVer = `<button data-id = ${full.lineaID} name="registro-editar" class="btn btn-outline-success" type="button" data-toggle="tooltip" data-placement="top" title="Editar productor">
-                                    <i class="fas fa-eye"></i>
-                                  </button>`;
-
-            let btnEliminar = `<button data-marco = ${full.lineaID} name="registro-eliminar" class="btn btn-outline-danger" type="button" data-toggle="tooltip" data-placement="top" title="Eliminar productor">
+            let btnEliminar = `<button data-marco = ${full.lineaID} name="registro-eliminar" class="btn btn-outline-danger" type="button" data-toggle="tooltip" data-placement="top" title="Eliminar productor" onclick="inhabilitarAsignaciones(${full.lineaID})">
                                   <i class="fas fa-trash"></i>
                                 </button>`;
-            return ` ${btnEliminar} ${btnVer} ${btnModificar}`;
+            return ` ${btnEliminar}`;
           },
         },
       ];
@@ -298,7 +334,7 @@ function listarLineasDisponibles() {
       
       datos.forEach((e) => {
         $("#linea2").append(
-          `<option data-sugerencia="${e.IMEI} ${e.marcaT} ${e.modeloT}"  data-proyecto="${e.nombreProyecto}" value="${e.lineaID}">${e.numeroLinea}</option>`
+          `<option data-sugerencia="${e.IMEI} ${e.nombreMarca} ${e.nombreModelo}"  data-proyecto="${e.nombreProyecto}" value="${e.lineaID}">${e.numeroLinea}</option>`
         );
 
         var columns = [
@@ -309,26 +345,21 @@ function listarLineasDisponibles() {
             mDataProp: "nombreProyecto",
           },
           {
-            mDataProp: "marcaT",
+            mDataProp: "nombreMarca",
           },
           {
-            mDataProp: "modeloT",   
+            mDataProp: "nombreModelo",   
           },
           {
             className: "text-left",
             render: function (data, types, full, meta) {
-              let btnModificar = `<button data-id = ${full.lineaID} name="registro-editar" class="btn btn-outline-primary" type="button" data-toggle="tooltip" data-placement="top" title="Editar productor">
+              let btnModificar = `<button data-id = ${full.lineaID} name="registro-editar" class="btn btn-outline-primary" type="button" data-toggle="tooltip" data-placement="top" title="Editar productor" onclick="editarCarga(${full.lineaID})">
                                       <i class="fas fa-pencil-alt"></i>
-                                    </button>`;
-  
-              let btnVer = `<button data-id = ${full.lineaID} name="registro-editar" class="btn btn-outline-success" type="button" data-toggle="tooltip" data-placement="top" title="Editar productor">
-                                      <i class="fas fa-eye"></i>
-                                    </button>`;
-  
+                                    </button>`;  
               let btnEliminar = `<button data-marco = ${full.lineaID} name="registro-eliminar" class="btn btn-outline-danger" type="button" data-toggle="tooltip" data-placement="top" title="Eliminar productor">
                                     <i class="fas fa-trash"></i>
                                   </button>`;
-              return ` ${btnEliminar} ${btnVer} ${btnModificar}`;
+              return ` ${btnEliminar} ${btnModificar}`;
             },
           },
         ];
@@ -352,12 +383,44 @@ function listarCelularesDisponibles() {
     // Petición exitosa
     success: function (respuesta) {
       let datos = JSON.parse(respuesta);
-      // console.log(datos)
+      console.log(datos)
       datos.forEach((e) => {
         $("#Imei2").append(
           `<option value="${e.lineaDetalleID}">${e.IMEI} ${e.nombreMarca} ${e.nombreModelo}</option>`
         );
       });
+
+      var columns = [
+        {
+          mDataProp: "IMEI",
+        },
+        {
+          mDataProp: "nombreMarca",
+        },
+        {
+          mDataProp: "nombreModelo",
+        },
+        {
+          mDataProp: "fechaRenovacion",   
+        },
+        {
+          mDataProp: "fechaVencimiento",   
+        },
+        {
+          className: "text-left",
+          render: function (data, types, full, meta) {
+            let btnModificar = `<button data-id = ${full.lineaID} name="registro-editar" class="btn btn-outline-primary" type="button" data-toggle="tooltip" data-placement="top" title="Editar productor" onclick="editarCarga(${full.lineaID})">
+                                    <i class="fas fa-pencil-alt"></i>
+                                  </button>`;  
+            let btnEliminar = `<button data-marco = ${full.lineaID} name="registro-eliminar" class="btn btn-outline-danger" type="button" data-toggle="tooltip" data-placement="top" title="Eliminar productor">
+                                  <i class="fas fa-trash"></i>
+                                </button>`;
+            return ` ${btnEliminar} ${btnModificar}`;
+          },
+        },
+      ];
+      // Llamado a la función para crear la tabla con los datos
+      cargarTabla("#TablaLineasSS", datos, columns);
     },
   });
 }
@@ -517,5 +580,147 @@ function listarUsuarios() {
         );
       });
     },
+  });
+}
+
+function editarCarga(id) {
+  $("#ExtralargeModal").modal('show');
+  cargarLinea(id);
+}
+
+function cargarLinea(id) {
+  $.ajax({
+    type: 'POST',
+    url: './modules/Lineas/controllers/cargarLinea.php',
+    data: {
+      id: id,
+    },
+    error: function (error) {
+      console.log(error);
+    },
+    success: function (respuesta) {
+      const datos = JSON.parse(respuesta);
+      // console.log(datos);
+      // console.log(datos[0].numeroLinea);
+      $("#btnEditarLinea").show();
+      $("#btnGuardarLinea").hide();
+
+      $('#numeroLinea').val(datos[0].numeroLinea);
+      $('#idEditar').val(id);
+      $('#codigoProyecto').val(datos[0].codigoProyecto).trigger('change');
+      $('#fechaActivacion').val(datos[0].FechaActivacion);
+      $('#fechaRenovacion').val(datos[0].fechaRenovacion);
+      $('#marca').val(datos[0].Marca).trigger('change');
+      $('#modelo').val(datos[0].Modelo).trigger('change');
+      $('#Imei').val(datos[0].IMEI);
+      $('#fechaVencimiento').val(datos.fechaVencimiento);
+    }
+  });
+}
+
+function editarLinea(losDatos){
+  $.ajax({
+    type: "POST",
+    url: "./modules/Lineas/controllers/editarLineas.php",
+    data: {
+      losDatos: losDatos,
+    },
+    // Error en la petición
+    error: function (error) {
+      console.log(error);
+    },
+    // Petición exitosa
+    success: function (respuesta) {
+        const resp = JSON.parse(respuesta);
+        // console.log("Respuesta parseada:", resp);
+
+        // console(resp[0].status)
+    
+        if (resp[0].status == "200") {
+          swal.fire("Lineas", "Linea Editada Correctamente", "success");
+        } else {
+          swal.fire("PER", resp.message, "warning");
+        }
+    },
+  });
+}
+
+function historico(){
+  $.ajax({
+    type: "POST",
+    url: "./modules/Lineas/controllers/historico.php",
+    error: function (error) {
+      console.log(error);
+    },
+    // Petición exitosa
+    success: function (respuesta) {
+        const resp = JSON.parse(respuesta);
+        // console.log(resp)
+        var columns = [
+          {
+            mDataProp: "numeroLinea",
+          },
+          {
+            mDataProp: "nombreProyecto",
+          },
+          {
+            mDataProp: "IMEI",
+          },
+          {
+            mDataProp: "nombreMarca",
+          },
+          {
+            mDataProp: "nombreModelo",
+          },
+          {
+            mDataProp: "fechaRenovacion",   
+          },
+          {
+            mDataProp: "fechaVencimiento",   
+          },
+          {
+            mDataProp: "descripcion",   
+          },
+          
+        ];
+        // Llamado a la función para crear la tabla con los datos
+        cargarTabla("#TablaLineasSSS", resp, columns);
+    },
+  });
+}
+
+function inhabilitarAsignaciones(id){
+  console.log(id)
+  Swal.fire({
+    title: "¿Que acción desea realizar?",
+    showDenyButton: true,
+    showCancelButton: true,
+    confirmButtonText: "Quitar Asignación",
+    denyButtonText: `Inactivar`
+  }).then((result) => {
+    estado = 0;
+    if (result.isConfirmed) {
+      Swal.fire("Linea sin asignacion!", "", "success").then(()=>{
+        $.ajax({
+          type: "POST",
+          url: "./modules/Lineas/controllers/quitarAsignacion.php",
+          data:{
+            id:id
+          },
+          error: function (error) {
+            console.log(error);
+          },
+          // Petición exitosa
+          success: function (respuesta) {
+            console.log(respuesta);
+
+          }
+        });
+      });
+    } else if (result.isDenied) {
+      Swal.fire("Linea inactivada correctamente", "", "success").then(()=>{
+        console.log('hola2')
+      });
+    }
   });
 }

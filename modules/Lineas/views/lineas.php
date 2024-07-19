@@ -4,14 +4,14 @@
             <h5 class="card-title">Inventario General de Lineas</h5>
             <br>
             <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-                <a data-bs-toggle="modal" data-bs-target="#ExtralargeModal" id="btnNuevaLinea" name="btnNuevaLinea"
-                    type="button" class="btn btn-primary"><i class="fas fa-save "></i>Nueva linea </a>
+                <a id="btnNuevaLinea" name="btnNuevaLinea" type="button" class="btn btn-primary"><i
+                        class="fas fa-save "></i>Nueva linea </a>
                 <a data-bs-toggle="modal" data-bs-target="#asignarLineaModal" id="btnAsignarLinea"
                     name="btnAsignarLinea" type="button" class="btn btn-success"><i
                         class="bi bi-chevron-bar-right"></i>Asignar linea</a>
-                <a data-bs-toggle="modal" data-bs-target="#asignarLineaModal" id="btnAsignarLinea"
+                <!-- <a data-bs-toggle="modal" data-bs-target="#asignarLineaModal" id="btnAsignarLinea"
                     name="btnAsignarLinea" type="button" class="btn btn-secondary"><i
-                        class="bi bi-chevron-bar-right"></i>Asignacion extraordinaria</a>
+                        class="bi bi-chevron-bar-right"></i>Asignacion extraordinaria</a> -->
                 <a id="btnPrint" name="btnPrint" type="button" class="btn btn-warning"><i
                         class="fas fa-print"></i>Imprimir Reporte</a>
             </div>
@@ -36,7 +36,7 @@
                 </li>
                 <li class="nav-item flex-fill" role="presentation">
                     <button class="nav-link w-100" id="original" data-bs-toggle="tab"
-                        data-bs-target="#contact-justified" type="button" role="tab" aria-controls="contact"
+                        data-bs-target="#contact-justified1" type="button" role="tab" aria-controls="contact"
                         aria-selected="false">Listado Original</button>
                 </li>
             </ul>
@@ -80,6 +80,46 @@
                         </table>
                     </div>
                 </div>
+                <div class="tab-pane fade" id="contact-justified" role="tabpanel" aria-labelledby="profile-tab">
+                    <div class="col-md-12 table-responsive">
+                        <table class="table align-items-center table-flush table-striped" id="TablaLineasSS"
+                            name="TablaLineas" width="100%">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">IMEI</th>
+                                    <th scope="col">Marca</th>
+                                    <th scope="col">Modelo</th>
+                                    <th scope="col">Fecha de renovación</th>
+                                    <th scope="col">Fecha de Vencimiento</th>
+                                    <th scope="col">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="contact-justified1" role="tabpanel" aria-labelledby="profile-tab">
+                    <div class="col-md-12 table-responsive">
+                        <table class="table align-items-center table-flush table-striped" id="TablaLineasSSS"
+                            name="TablaLineas" width="100%">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">Linea</th>
+                                    <th scope="col">Proyecto</th>
+                                    <th scope="col">IMEI</th>
+                                    <th scope="col">Marca</th>
+                                    <th scope="col">Modelo</th>
+                                    <th scope="col">Fecha de renovación</th>
+                                    <th scope="col">Fecha de Vencimiento</th>
+                                    <th scope="col">Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div><!-- End Default Tabs -->
         </div>
     </div>
@@ -90,6 +130,7 @@
 <div class="modal fade" id="ExtralargeModal" tabindex="-1">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
+
             <div class="modal-header">
                 <h5 class="modal-title">Ingreso de Lineas</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -97,6 +138,7 @@
             <div class="card">
                 <div class="card-body">
                     <!-- Floating Labels Form -->
+                    <input type="text" id="idEditar" hidden>
                     <form id="modalLineas" name="modalLineas" class="row g-3 p-4" novalidate>
                         <div class="col-md-6">
                             <div class="form-floating">
@@ -163,6 +205,8 @@
             </div>
 
             <div class="modal-footer">
+                <a type="submit" class="btn btn-warning" id="btnEditarLinea"><i class="fas fa-pencil-alt"></i>
+                    Editar</a>
                 <a type="submit" class="btn btn-primary" id="btnGuardarLinea"><i class="bi bi-cloud-check-fill"></i>
                     Guardar</a>
                 <a type="reset" class="btn btn-secondary" id="btnLimpiarModal"><i class="bi bi-cloud-fog2"></i>
