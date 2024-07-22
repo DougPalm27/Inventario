@@ -70,7 +70,7 @@ class mdlGenerales
 
     public function listarEquipo()
     {
-    
+
         $Equipo = "SELECT 
         e.equipoID,e.categoriaID,e.estadoID,e.fechaAdquisicion,precioAdquisicion,ubicacionID,e.proyectoID,p.nombreProyecto AS np,proveedorID,descripcionGeneral,
         e.serie,e.codigoSAP,e.marcaID,e.modeloID,ma.nombreMarca,m.nombreModelo FROM inventario.equipo AS e
@@ -80,6 +80,22 @@ class mdlGenerales
 
         
         WHERE e.estadoID IN (1) AND e.equipoID NOT IN (SELECT a.equipoID FROM inventario.asignaciones AS a WHERE estadoID = 3)";
+        $stmt = $this->conn->prepare($Equipo);
+        try {
+            $stmt->execute();
+            $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            $resultado = $e->getMessage();
+        }
+        $stmt->closeCursor();
+        return $resultado;
+    }
+
+    public function listarKit()
+    {
+
+        $Equipo = "SELECT * FROM inventario.kit AS k
+        INNER JOIN inventario.proyectos AS p ON k.proyectoID = P.codigoProyecto";
         $stmt = $this->conn->prepare($Equipo);
         try {
             $stmt->execute();

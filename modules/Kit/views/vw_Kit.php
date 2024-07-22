@@ -82,85 +82,6 @@
 </div>
 </div>
 
-<!-- Extra Large Modal -->
-<!-- <div class="modal fade" id="ExtralargeModal" tabindex="-1">
-    <div class="modal-dialog modal-xl">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Ingreso de Lineas</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="card">
-                <div class="card-body">
-
-                    <form id="modalLineas" name="modalLineas" class="row g-3 p-4" novalidate>
-                        <div class="col-md-6">
-                            <div class="form-floating">
-                                <input type="text" class="form-control" id="numeroLinea" name="numerolinea" placeholder="City"  require>
-                                <label for="floatingCity">Número Linea</label>
-
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-floating mb-3">
-                                <select class="form-select" id="codigoProyecto" name="codigoProyecto" php-email-form aria-label="State">
-                                    <option selected>Selecciona un Proyecto</option>
-                                </select>
-                                <label for="floatingSelect">Proyecto</label>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-floating">
-                                <input type="date" class="form-control" id="fechaActivacion" php-email-form  name="fechaActivacion">
-                                <label>Fecha de Activación</label>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-floating mb-3">
-                                <select class="form-select" id="marca" name="marca">
-                                    <option selected>Selecciona una Marca</option>
-                                </select>
-                                <label for="floatingSelect">Marca</label>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-floating mb-3">
-                                <select class="form-select" id="modelo" name="modelo">
-                                    <option selected>Selecciona un Modelo</option>
-                                </select>
-                                <label for="floatingSelect">Modelo</label>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-floating">
-                                <input type="text" class="form-control" id="Imei" name="Imei" placeholder="City">
-                                <label for="floatingCity">IMEI</label>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-floating">
-                                <input type="date" class="form-control" id="fechaRenovacion" name="fechaRenovacion" placeholder="City">
-                                <label for="floatingCity">Fecha de Renovacion</label>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-floating">
-                                <input type="date" class="form-control" id="fechaVencimiento" name="fechaVencimiento" placeholder="City">
-                                <label for="floatingCity">Fecha de Vencimiento</label>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-            <div class="modal-footer">
-                <a type="submit" class="btn btn-primary" id="btnGuardarLinea"><i class="bi bi-cloud-check-fill"></i> Guardar</a>
-                <a type="reset" class="btn btn-secondary" id="btnLimpiarModal"><i class="bi bi-cloud-fog2"></i> Limpiar</a>
-            </div>
-        </div>
-    </div>
-</div> -->
-
 <!-- Vertically centered Modal -->
 <div class="modal fade" id="asignarEquipoModal" tabindex="-1">
     <div class="modal-dialog modal-xl">
@@ -181,7 +102,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-floating mb-3">
-                                <select class="form-select" id="usuarioID" name="usuarioID" aria-label="State">
+                                <select class="form-select" id="usuario2" name="usuario2" aria-label="State">
                                     <option selected value="-1">Selecciona un usuario</option>
                                 </select>
                                 <label for="floatingSelect">Usuario a asignar</label>
@@ -189,8 +110,8 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-floating mb-3">
-                                <select class="form-select" id="equipoID" name="equipoID" aria-label="State">
-                                    <option selected value="-1">Selecciona un Equipo</option>
+                                <select class="form-select" id="kitID" name="kitID" aria-label="State">
+                                    <option selected value="-1">Selecciona un Elemento</option>
                                 </select>
                                 <label for="floatingSelect">Kit a asignar</label>
                             </div>
@@ -203,7 +124,7 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <input type="date" class="form-control" id="fechaAsignacionEquipo" name="fechaAsignacionEquipo" placeholder="City">
+                                <input type="date" class="form-control" id="fechaAsignacionKit" name="fechaAsignacionKit" placeholder="City">
                                 <label for="floatingCity">Fecha de asignación</label>
                             </div>
                         </div>
@@ -211,7 +132,7 @@
 
                         <div class="form-floating">
                             <label for="exampleFormControlTextarea1" class="form-label"></label>
-                            <textarea class="form-control" id="Observaciones" placeholder="City"></textarea>
+                            <textarea class="form-control" id="observaciones" placeholder="City"></textarea>
                             <label for="floatingCity">Observaciones</label>
                         </div>
 
@@ -219,7 +140,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <a type="submit" class="btn btn-primary" id="btnGuardarAsignarKit"><i class="bi bi-cloud-check-fill"></i> Guardar</a>
+                <a type="submit" class="btn btn-primary" id="btnAsgKit"><i class="bi bi-cloud-check-fill"></i> Guardar</a>
                 <a type="reset" class="btn btn-secondary" id="btnLimpiarModalKit"><i class="bi bi-cloud-fog2"></i> Limpiar</a>
             </div>
         </div>
@@ -239,32 +160,33 @@
                     <form id="modalLineas" name="modalEquiposAsignacion" class="row g-3 p-4">
                         <div class="form-floating">
                             <label for="exampleFormControlTextarea1" class="form-label"></label>
-                            <textarea class="form-control" id="descripcion2" placeholder="City"></textarea>
+                            <textarea class="form-control" id="descripcion" placeholder="City"></textarea>
                             <label for="floatingCity">Descripcion general</label>
                         </div>
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="form-floating">
-                                <input type="number" class="form-control" id="precio3" name="precio3" placeholder="City">
+                                <input type="number" class="form-control" id="precio" name="precio" placeholder="City">
                                 <label for="floatingCity">Precio:</label>
                             </div>
                         </div>
-                        <div class="col-md-12">
-                            <div class="form-floating mb-3">
-                                <select class="form-select" id="proyecto3" name="proyecto3" aria-label="State">
-                                    <option selected value="-1">Selecciona un proyecto</option>
+                        <div class="col-md-6">
+                            <div class="form-floating floating-select2 mb-3">
+                                <select class="form-select Select2Modal1 " id="proyecto" name="proyecto"
+                                    php-email-form aria-label="State">
+                                    <option selected>Selecciona un Proyecto</option>
                                 </select>
-                                <label for="floatingSelect">Pertenece al proyecto:</label>
+                                <label for="floatingSelect">Proyecto</label>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <input type="text" class="form-control" id="sap3" name="sap3" placeholder="City">
+                                <input type="text" class="form-control" id="sap" name="sap" placeholder="City">
                                 <label for="floatingCity">Codigo SAP:</label>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-floating">
-                                <input type="date" class="form-control" id="fecha3" name="fecha3" placeholder="City">
+                                <input type="date" class="form-control" id="fecha" name="fecha" placeholder="City">
                                 <label for="floatingCity">Fecha de compra:</label>
                             </div>
                         </div>

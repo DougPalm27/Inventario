@@ -8,5 +8,6 @@
     //Controlador para registrar la informacion en la base de datos
     // Instanciamos el modelo y llamamos al método correspondiente
     $conexion = new mdlKit();
-    $elRegistro = $conexion->guardarKit($losDatos);
+    $elRegistro = $conexion->asgKit($losDatos);
+
 

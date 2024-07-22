@@ -122,7 +122,7 @@ if (!empty($_GET['module'])) {
     echo '<script src="./modules/Parametrizacion/modelos/js/modelo.js"></script>';
   }
   if ($_GET['module'] == 'kit') {
-    echo '<script src="./modules/kit/modelos/js/kit.js"></script>';
+    echo '<script src="./modules/Kit/js/kit.js"></script>';
   }
 } else {
   //echo '<script src="/modules/home/"></script>';
