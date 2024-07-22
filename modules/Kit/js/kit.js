@@ -6,6 +6,9 @@ $(document).ready(function () {
   listarKit();
   listarUsuarios();
   listarProyectos();
+  listarAsignacionesKit();
+  listarDisponiblesKit();
+  listarTodoKit();
 
   $("#btnKit").on("click", function () {
     let losDatos = {
@@ -109,7 +112,7 @@ $(document).ready(function () {
         })
         .then((result) => {
           if (result.isConfirmed) {
-            console.log(losDatos);
+
             asignacionKit(losDatos);
           }
         });
@@ -324,3 +327,219 @@ function listarProyectos() {
   });
 }
 
+function listarAsignacionesKit() {
+  // Petición
+  $.ajax({
+    type: "GET",
+    url: "modules/Kit/controllers/ctr_listarKitAsignacion.php",
+    dataType: "json",
+    error: function (error) {
+      console.log(error);
+      Swal.fire({
+        title: "Reporte",
+        icon: "warning",
+        text: `${error}`,
+        confirmButtonColor: "#3085d6",
+      });
+    },
+    success: function (respuesta) {
+      // Creamos las columnas de nuestra tabla
+      console.log(respuesta);
+      var columns = [
+        {
+          mDataProp: "codigoSAP",
+          width: 5,
+        },
+        {
+          mDataProp: "nombreCompleto",
+          width: 30,
+        },
+        {
+          mDataProp: "kitDes",
+          width: 5,
+        },
+        {
+          mDataProp: "nombreProyecto",
+          width: 5,
+        },
+        {
+          className: "text-left",
+          width: 5,
+          render: function (data, types, full, meta) {
+            /* let btnImprimir = `<button data-id = ${full.asignacionID} name="registro-imprimir" class="btn btn-outline-primary" type="button" data-toggle="tooltip" data-placement="top" title="Editar productor">
+                                      <i class="bx bxs-printer"></i>
+                                    </button>`; */
+            let btnEliminar = `<button data-id = ${full.asignacionID} name="registro-eliminar" class="btn btn-outline-danger" type="button" data-toggle="tooltip" data-placement="top" title="Eliminar productor">
+                                    <i class="fas fa-trash"></i>
+                                  </button>`;
+            return ` ${btnEliminar}`;
+          },
+        },
+      ];
+      // Llamado a la función para crear la tabla con los datos
+      cargarTabla("#TablaKit1", respuesta, columns);
+    },
+  });
+}
+function listarDisponiblesKit() {
+  // Petición
+  $.ajax({
+    type: "GET",
+    url: "modules/Kit/controllers/ctr_listarKitDisponible.php",
+    dataType: "json",
+    error: function (error) {
+      console.log(error);
+      Swal.fire({
+        title: "Reporte",
+        icon: "warning",
+        text: `${error}`,
+        confirmButtonColor: "#3085d6",
+      });
+    },
+    success: function (respuesta) {
+      // Creamos las columnas de nuestra tabla
+      console.log(respuesta);
+      var columns = [
+        {
+          mDataProp: "codigoSAP",
+          width: 5,
+        },
+        {
+          mDataProp: "descripcion",
+          width: 30,
+        },
+        {
+          mDataProp: "nombreProyecto",
+          width: 5,
+        },
+        {
+          className: "text-left",
+          width: 5,
+          render: function (data, types, full, meta) {
+            /* let btnImprimir = `<button data-id = ${full.asignacionID} name="registro-imprimir" class="btn btn-outline-primary" type="button" data-toggle="tooltip" data-placement="top" title="Editar productor">
+                                      <i class="bx bxs-printer"></i>
+                                    </button>`; */
+            let btnEliminar = `<button data-id = ${full.asignacionID} name="registro-eliminar" class="btn btn-outline-danger" type="button" data-toggle="tooltip" data-placement="top" title="Eliminar productor">
+                                    <i class="fas fa-trash"></i>
+                                  </button>`;
+            return ` ${btnEliminar}`;
+          },
+        },
+      ];
+      // Llamado a la función para crear la tabla con los datos
+      cargarTabla("#TablaKit2", respuesta, columns);
+    },
+  });
+}
+
+function listarTodoKit() {
+  // Petición
+  $.ajax({
+    type: "GET",
+    url: "modules/Kit/controllers/ctr_listarKitCompleto.php",
+    dataType: "json",
+    error: function (error) {
+      console.log(error);
+      Swal.fire({
+        title: "Reporte",
+        icon: "warning",
+        text: `${error}`,
+        confirmButtonColor: "#3085d6",
+      });
+    },
+    success: function (respuesta) {
+      // Creamos las columnas de nuestra tabla
+      console.log(respuesta);
+      var columns = [
+        {
+          mDataProp: "codigoSAP",
+          width: 5,
+        },
+        {
+          mDataProp: "kit",
+          width: 30,
+        },
+        {
+          mDataProp: "precio",
+          width: 5,
+        },
+        {
+          mDataProp: "nombreProyecto",
+          width: 5,
+        },
+        {
+          mDataProp: "estado",
+          width: 5,
+        },
+        {
+          className: "text-left",
+          width: 5,
+          render: function (data, types, full, meta) {
+            /* let btnImprimir = `<button data-id = ${full.asignacionID} name="registro-imprimir" class="btn btn-outline-primary" type="button" data-toggle="tooltip" data-placement="top" title="Editar productor">
+                                      <i class="bx bxs-printer"></i>
+                                    </button>`; */
+            let btnEliminar = `<button data-id = ${full.asignacionID} name="registro-eliminar" class="btn btn-outline-danger" type="button" data-toggle="tooltip" data-placement="top" title="Eliminar productor">
+                                    <i class="fas fa-trash"></i>
+                                  </button>`;
+            return ` ${btnEliminar}`;
+          },
+        },
+      ];
+      // Llamado a la función para crear la tabla con los datos
+      cargarTabla("#TablaKit3", respuesta, columns);
+    },
+  });
+}
+
+function cargarTabla(tableID, data, columns) {
+  $(tableID).dataTable().fnClearTable();
+  $(tableID).dataTable().fnDestroy();
+  var params = {
+    aaData: data,
+
+    aoColumns: columns,
+    bSortable: true,
+    ordering: true,
+
+    language: {
+      sProcessing: "Procesando...",
+      sLengthMenu: "Mostrar _MENU_ registros",
+      sZeroRecords: "No se encontraron resultados",
+      sEmptyTable: "Ningún dato disponible en esta tabla",
+      sInfo:
+        "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+      sInfoEmpty: "Mostrando registros del 0 al 0 de un total de 0 registros",
+      sInfoFiltered: "(filtrado de un total de _MAX_ registros)",
+      sInfoPostFix: "",
+      sSearch: "Buscar:",
+      sUrl: "",
+      sInfoThousands: ",",
+      sLoadingRecords: "Cargando...",
+      oPaginate: {
+        sFirst: "Primero",
+        sLast: "Último",
+        sNext: "Siguiente",
+        sPrevious: "Anterior",
+      },
+      oAria: {
+        sSortAscending:
+          ": Activar para ordenar la columna de manera ascendente",
+        sSortDescending:
+          ": Activar para ordenar la columna de manera descendente",
+      },
+      buttons: {
+        copy: "Copiar",
+        colvis: "Visibilidad",
+      },
+    },
+  };
+
+  $(tableID).DataTable(params);
+  $('a[data-toggle="tab"]').on("shown.bs.tab", function (e) {
+    $($.fn.dataTable.tables(true))
+      .DataTable()
+      .columns.adjust()
+      .fixedColumns()
+      .relayout();
+  });
+}

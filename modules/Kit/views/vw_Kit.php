@@ -64,10 +64,10 @@
                             <thead class="thead-dark">
                                 <tr>
                                     <th scope="col">Codigo SAP</th>
+                                    <th scope="col">Kit</th>
+                                    <th scope="col">precio</th>
                                     <th scope="col">Proyecto</th>
-                                    <th scope="col">Marca</th>
-                                    <th scope="col">Modelo</th>
-                                    <th scope="col">Serie</th>
+                                    <th scope="col">estado</th>
                                     <th scope="col">Estado</th>
                                 </tr>
                             </thead>

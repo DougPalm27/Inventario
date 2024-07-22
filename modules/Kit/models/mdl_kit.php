@@ -11,8 +11,8 @@ class mdlKit
 
     public function listarKit()
     {
-       $Equipo = "SELECT kitID, k.descripcion as kit, precio,codigoProyecto, e.descripcion as estado, codigoSAP,nombreProyecto FROM inventario.kit AS k
-            INNER JOIN inventario.proyectos AS p ON k.proyectoID = p.codigoProyecto
+        $Equipo = "SELECT kitID, k.descripcion as kit, precio,codigoProyecto, e.descripcion as estado, codigoSAP,nombreProyecto FROM inventario.kit AS k
+            INNER JOIN inventario.proyectos AS p ON k.proyectoID = p.proyectoID
             INNER JOIN inventario.estados AS e ON k.estadoID = e.estadoID";
         $stmt = $this->conn->prepare($Equipo);
         try {
@@ -59,9 +59,9 @@ class mdlKit
         $stmt->bindParam(":precio", $losDatos->precio);
         $stmt->bindParam(":proyectoID", $losDatos->proyecto);
         $stmt->bindParam(":fecha", $losDatos->fecha);
-        $stmt->bindParam(":sap",$losDatos->sap);
+        $stmt->bindParam(":sap", $losDatos->sap);
 
- 
+
 
         try {
             $stmt->execute();
@@ -85,7 +85,7 @@ class mdlKit
         $recio = "	INSERT INTO inventario.kitAsignaciones
         (kitID,usuarioID,fechaAsignacion,estadoID,observaciones) 
         VALUES 
-        (:kit,:usuario,:fecha,1,:observaciones)";
+        (:kit,:usuario,:fecha,3,:observaciones)";
         $stmt = $this->conn->prepare($recio);
         $stmt->bindParam(":kit", $losDatos->kit);
         $stmt->bindParam(":usuario", $losDatos->usuario);
@@ -108,5 +108,54 @@ class mdlKit
         return $resultado;
     }
 
+    public function listarKitAsignacion()
+    {
+        $Equipo = "SELECT k.codigoSAP,em.nombreCompleto ,k.descripcion as kitDes, p.nombreProyecto   FROM inventario.kitAsignaciones ka
+            INNER JOIN inventario.kit AS k ON ka.kitID = k.kitID
+            INNER JOIN inventario.proyectos AS p ON k.proyectoID = p.codigoProyecto
+            INNER JOIN rrhh.vw_empleadosActivos as em ON ka.usuarioID = em.idEmpleado
+        ";
+        $stmt = $this->conn->prepare($Equipo);
+        try {
+            $stmt->execute();
+            $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            $resultado = $e->getMessage();
+        }
+        $stmt->closeCursor();
+        return $resultado;
+    }
+    public function listarKitDisponibles()
+    {
+        $Equipo = "SELECT k.codigoSAP,k.descripcion,p.nombreProyecto FROM inventario.kit as k
+        INNER JOIN inventario.proyectos as p ON k.proyectoID = p.proyectoID
+        inner join inventario.estados AS ES on k.estadoID = es.estadoID
+        WHERE k.kitID NOT IN (SELECT kitID FROM inventario.kitAsignaciones as kt WHERE k.kitID = kt.kitID AND estadoID = 3)
+        ";
+        $stmt = $this->conn->prepare($Equipo);
+        try {
+            $stmt->execute();
+            $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            $resultado = $e->getMessage();
+        }
+        $stmt->closeCursor();
+        return $resultado;
+    }
+    public function listarKitTodo()
+    {
+        $Equipo = "SELECT kitID, k.descripcion as kit, precio,codigoProyecto, e.descripcion as estado, codigoSAP,nombreProyecto FROM inventario.kit AS k
+            INNER JOIN inventario.proyectos AS p ON k.proyectoID = p.proyectoID
+            INNER JOIN inventario.estados AS e ON k.estadoID = e.estadoID
+        ";
+        $stmt = $this->conn->prepare($Equipo);
+        try {
+            $stmt->execute();
+            $resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            $resultado = $e->getMessage();
+        }
+        $stmt->closeCursor();
+        return $resultado;
+    }
 }
-
