@@ -13,7 +13,8 @@ class mdlKit
     {
         $Equipo = "SELECT kitID, k.descripcion as kit, precio,codigoProyecto, e.descripcion as estado, codigoSAP,nombreProyecto FROM inventario.kit AS k
             INNER JOIN inventario.proyectos AS p ON k.proyectoID = p.proyectoID
-            INNER JOIN inventario.estados AS e ON k.estadoID = e.estadoID";
+            INNER JOIN inventario.estados AS e ON k.estadoID = e.estadoID
+			WHERE k.kitID NOT IN (SELECT kitID FROM inventario.kitAsignaciones as kt WHERE k.kitID = kt.kitID AND estadoID = 3)";
         $stmt = $this->conn->prepare($Equipo);
         try {
             $stmt->execute();
@@ -112,8 +113,8 @@ class mdlKit
     {
         $Equipo = "SELECT k.codigoSAP,em.nombreCompleto ,k.descripcion as kitDes, p.nombreProyecto   FROM inventario.kitAsignaciones ka
             INNER JOIN inventario.kit AS k ON ka.kitID = k.kitID
-            INNER JOIN inventario.proyectos AS p ON k.proyectoID = p.codigoProyecto
-            INNER JOIN rrhh.vw_empleadosActivos as em ON ka.usuarioID = em.idEmpleado
+            INNER JOIN inventario.proyectos AS p ON k.proyectoID = p.proyectoID
+            INNER JOIN DBSIMFCOH.rrhh.vw_empleadosActivos as em ON ka.usuarioID = em.idEmpleado
         ";
         $stmt = $this->conn->prepare($Equipo);
         try {
